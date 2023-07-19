@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class RepeatTunnel : MonoBehaviour
 {
-    public float zModifier = 5;
-
     private Vector3 startPos;
-
-
     void Start()
     {
         startPos = transform.position;
@@ -17,7 +13,7 @@ public class RepeatTunnel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (transform.position.z > startPos.z + zModifier)
+        if (transform.position.z > startPos.z + 5)
         {
             transform.position = startPos;
         }
