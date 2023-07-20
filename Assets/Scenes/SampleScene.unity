@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1899143260827095188, guid: ca845ba5013c20f4ba1dd6a0dd591a97, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1899143260827095190, guid: ca845ba5013c20f4ba1dd6a0dd591a97, type: 3}
       propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[1].m_Value
       value: 2000
@@ -5355,6 +5359,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectile: {fileID: 2030809437, guid: 2d7cd1dbbf7d9fa4b90fb596319dcb64, type: 3}
+  SpawnProjectile: {fileID: 0}
 --- !u!4 &698041550 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3118167272131167491, guid: c623b51bd2472604e921bf8c4f5883ef, type: 3}
