@@ -45,11 +45,12 @@ public class SpinTunnel : MonoBehaviour
         {
             isOnBottom = !isOnBottom;
 
+            Debug.Log("We Flipped!");
+
             foreach (Transform tunnel in tunnels)
             {
                 //Flips all the tunnels by 180 degrees
                 tunnel.rotation *= Quaternion.AngleAxis(180, Vector3.forward);
-
             }
         }
     }
@@ -61,8 +62,6 @@ public class SpinTunnel : MonoBehaviour
 
         foreach (Transform tunnel in tunnels)
         {
-            Debug.Log(tunnel.rotation);
-
             float amountToRotate = speed * input * Time.deltaTime;
 
             /* This code looks more complicated than it really is.
@@ -80,7 +79,6 @@ public class SpinTunnel : MonoBehaviour
              *     maximumToUse = topMaximum;
              * }
             */
-
             Quaternion minimumToUse = isOnBottom ? bottomMinimum : topMinimum;
             Quaternion maximumToUse = isOnBottom ? bottomMaximum : topMaximum;
 
