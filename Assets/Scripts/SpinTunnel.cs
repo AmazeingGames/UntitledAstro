@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class SpinTunnel : MonoBehaviour
 {
@@ -8,6 +9,7 @@ public class SpinTunnel : MonoBehaviour
 
     [SerializeField] float speed = 5;
 
+    [SerializeField] bool shouldRotatePanels = true;
     [SerializeField] bool shouldStopAtThreshold = true;
     [SerializeField] float minimumStopThreshold = .5f;
 
@@ -20,14 +22,34 @@ public class SpinTunnel : MonoBehaviour
     readonly Quaternion topMaximum = new Quaternion(0.00000f, 0.00000f, -0.70968f, 0.70452f); //(-90)
 
     readonly List<Transform> tunnels = new List<Transform>();
+    readonly List<List<Transform>> listOfPanels = new();
+
+    Vector3 tunnelCenter;
 
     void Start()
     {
+        tunnelCenter = GameObject.Find("TunnelCenter").transform.position;
+
         int tunnelsToGet = transform.childCount;
 
         for (int i = 0; i < tunnelsToGet; i++)
         {
             tunnels.Add(transform.GetChild(i));
+        }
+
+        for (int i = 0; i < tunnels.Count; i++)
+        {
+            var tunnel = tunnels[i];
+
+            var panelsList = new List<Transform>();
+
+            for (int n = 0; n < tunnel.childCount; n++)
+            {
+                var panel = tunnel.GetChild(n);
+
+                panelsList.Add(panel);
+            }
+            listOfPanels.Add(panelsList);
         }
     }
 
@@ -58,42 +80,19 @@ public class SpinTunnel : MonoBehaviour
     //Rotates all the tunnels according to the horizontal axes keys (left, right)
     void RotateTunnels()
     {
-        float input = Input.GetAxisRaw("Horizontal");
 
-        foreach (Transform tunnel in tunnels)
+        for (int i = 0; i < listOfPanels.Count; i++)
         {
-            float amountToRotate = speed * input * Time.deltaTime;
-
-            /* This code looks more complicated than it really is.
-             * What this does is if the given value (isOnBottom) is true, the value we're trying to assign becomes the value after the ? operator (bottomMaximum), else it becomes the value after the : operator (topMaximum)
-             * It's essentially the same as:
-             * 
-             * if (isOnBottom == true)
-             * {
-             *    minimumToUse = bottomMinimum;
-             *    maximumToUse = bottomMaximum;
-             * }
-             * else
-             * {
-             *   minimumToUse = topMinimum;
-             *     maximumToUse = topMaximum;
-             * }
-            */
-            Quaternion minimumToUse = isOnBottom ? bottomMinimum : topMinimum;
-            Quaternion maximumToUse = isOnBottom ? bottomMaximum : topMaximum;
-
-            //This code determines the angle of the tunnels and the tunnels stopping point, and returns an angle of how close they match.
-            //The closer to 0, the closer the two angles are.
-            float differenceInMinimumAngle = Quaternion.Angle(tunnel.rotation, minimumToUse);
-            float differenceInMaximumAngle = Quaternion.Angle(tunnel.rotation, maximumToUse);
-
-            //Only rotates if we're not close the rotational bounds
-            if (shouldStopAtThreshold && ((amountToRotate < 0 && differenceInMinimumAngle < minimumStopThreshold) || (amountToRotate > 0 && differenceInMaximumAngle < minimumStopThreshold)))
+            for (int n = 0; n < listOfPanels[i].Count; n++)
             {
-                Debug.Log("We are too close to the edge; can't move any farther");
-                break;
+                float input = Input.GetAxisRaw("Horizontal");
+
+                var currentList = listOfPanels[i];
+                var panel = currentList[n];
+
+                float amountToRotate = speed * input * Time.deltaTime;
+                panel.Rotate(0f, 0f, amountToRotate);
             }
-            tunnel.transform.Rotate(0f, 0f, amountToRotate);
         }
     }
 }
