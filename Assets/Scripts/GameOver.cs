@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    private bool gameOver = false;
+    public bool gameOver = false;
     void Start()
     {
         
