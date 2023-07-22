@@ -5223,7 +5223,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7fafd2d7719b24291d8df9fe10e1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 80
+  speed: 100
   shouldStopAtThreshold: 1
   minimumStopThreshold: 0.5
 --- !u!1 &410087039
@@ -5386,7 +5386,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &698041548 stripped
 GameObject:
