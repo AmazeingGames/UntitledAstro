@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4511497699694708757}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.295662, y: -0.8714546, z: -5.2144003}
+  m_LocalPosition: {x: 0, y: 0, z: -5.2144003}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -62,11 +62,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.1149658
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.08570957
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -103,7 +103,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
       value: top-right panel
@@ -140,11 +140,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.106337905
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.077545404
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -181,7 +181,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
       value: bot-left panel
@@ -218,11 +218,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.11033797
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.08354539
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -259,7 +259,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
       value: top-left panel
@@ -296,11 +296,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.10533798
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.080545425
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -337,10 +337,14 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
       value: top panel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c16462116cd85614a9644656a2dff88b, type: 3}
@@ -374,11 +378,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.107
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.079
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -415,7 +419,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
+      objectReference: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
       value: bot panel
@@ -452,11 +456,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.10387862
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.07379043
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -493,7 +497,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Icon
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
       value: bot-right panel
