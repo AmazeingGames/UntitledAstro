@@ -1,6 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Windows;
+using static UnityEngine.Rendering.DebugUI;
+using Input = UnityEngine.Input;
 
 public class SpinTunnel : MonoBehaviour
 {
@@ -8,18 +12,22 @@ public class SpinTunnel : MonoBehaviour
 
     [SerializeField] float speed = 5;
 
+    [SerializeField] bool shouldRotatePanels = true;
     [SerializeField] bool shouldStopAtThreshold = true;
     [SerializeField] float minimumStopThreshold = .5f;
 
+    [SerializeField] Transform botPanel;
+    [SerializeField] Transform topPanel;
     bool isOnBottom = true;
 
-    readonly Quaternion bottomMinimum = new Quaternion(0.00000f, 0.00000f, -0.26234f, 0.96498f); //(-30)
-    readonly Quaternion bottomMaximum = new Quaternion(0.00000f, 0.00000f, 0.70452f, 0.70968f); //(90)
+    readonly Quaternion bottomMinimum = new Quaternion(0.00000f, 0.00000f, 0.96498f, 0.26234f); //(150)
+    readonly Quaternion bottomMaximum = new Quaternion(0.00000f, 0.00000f, 0.70968f, -0.70452f); //(90)
 
     readonly Quaternion topMinimum = new Quaternion(0.00000f, 0.00000f, 0.96498f, 0.26234f); //(150)
-    readonly Quaternion topMaximum = new Quaternion(0.00000f, 0.00000f, -0.70968f, 0.70452f); //(-90)
+    readonly Quaternion topMaximum = new Quaternion(0.00000f, 0.00000f, -0.70968f, 0.70452f); //(270)
 
     readonly List<Transform> tunnels = new List<Transform>();
+    readonly List<List<Transform>> listOfPanels = new();
 
     void Start()
     {
@@ -28,6 +36,21 @@ public class SpinTunnel : MonoBehaviour
         for (int i = 0; i < tunnelsToGet; i++)
         {
             tunnels.Add(transform.GetChild(i));
+        }
+
+        for (int i = 0; i < tunnels.Count; i++)
+        {
+            var tunnel = tunnels[i];
+
+            var panelsList = new List<Transform>();
+
+            for (int n = 0; n < tunnel.childCount; n++)
+            {
+                var panel = tunnel.GetChild(n);
+
+                panelsList.Add(panel);
+            }
+            listOfPanels.Add(panelsList);
         }
     }
 
@@ -47,53 +70,59 @@ public class SpinTunnel : MonoBehaviour
 
             Debug.Log("We Flipped!");
 
-            foreach (Transform tunnel in tunnels)
+            for (int i = 0; i < listOfPanels.Count; i++)
             {
-                //Flips all the tunnels by 180 degrees
-                tunnel.rotation *= Quaternion.AngleAxis(180, Vector3.forward);
+                for (int n = 0; n < listOfPanels[i].Count; n++)
+                {
+                    //Flips all the tunnels by 180 degrees
+                    var panel = listOfPanels[i][n];
+                    panel.rotation *= Quaternion.AngleAxis(180, Vector3.forward);
+                }
             }
         }
-    }
+    } 
 
     //Rotates all the tunnels according to the horizontal axes keys (left, right)
     void RotateTunnels()
     {
+        Debug.Log("Bot Panel: " + botPanel.rotation);
+        Debug.Log("Top Panel: " + topPanel.rotation);
+        
         float input = Input.GetAxisRaw("Horizontal");
+        float amountToRotate = speed * input * Time.deltaTime;
 
-        foreach (Transform tunnel in tunnels)
+        if (ShouldStopRotating(amountToRotate))
+            return;
+
+        for (int i = 0; i < listOfPanels.Count; i++)
         {
-            float amountToRotate = speed * input * Time.deltaTime;
-
-            /* This code looks more complicated than it really is.
-             * What this does is if the given value (isOnBottom) is true, the value we're trying to assign becomes the value after the ? operator (bottomMaximum), else it becomes the value after the : operator (topMaximum)
-             * It's essentially the same as:
-             * 
-             * if (isOnBottom == true)
-             * {
-             *    minimumToUse = bottomMinimum;
-             *    maximumToUse = bottomMaximum;
-             * }
-             * else
-             * {
-             *   minimumToUse = topMinimum;
-             *     maximumToUse = topMaximum;
-             * }
-            */
-            Quaternion minimumToUse = isOnBottom ? bottomMinimum : topMinimum;
-            Quaternion maximumToUse = isOnBottom ? bottomMaximum : topMaximum;
-
-            //This code determines the angle of the tunnels and the tunnels stopping point, and returns an angle of how close they match.
-            //The closer to 0, the closer the two angles are.
-            float differenceInMinimumAngle = Quaternion.Angle(tunnel.rotation, minimumToUse);
-            float differenceInMaximumAngle = Quaternion.Angle(tunnel.rotation, maximumToUse);
-
-            //Only rotates if we're not close the rotational bounds
-            if (shouldStopAtThreshold && ((amountToRotate < 0 && differenceInMinimumAngle < minimumStopThreshold) || (amountToRotate > 0 && differenceInMaximumAngle < minimumStopThreshold)))
+            for (int n = 0; n < listOfPanels[i].Count; n++)
             {
-                Debug.Log("We are too close to the edge; can't move any farther");
-                break;
+
+                var currentList = listOfPanels[i];
+                var panel = currentList[n];
+
+                panel.Rotate(0f, 0f, amountToRotate);
             }
-            tunnel.transform.Rotate(0f, 0f, amountToRotate);
         }
+    }
+
+    bool ShouldStopRotating(float amountToRotate)
+    {
+        Quaternion minimumToUse = isOnBottom ? bottomMinimum : topMinimum;
+        Quaternion maximumToUse = isOnBottom ? bottomMaximum : topMaximum;
+
+        Transform panelToUse = isOnBottom ? botPanel : topPanel;
+
+        float differenceInMinimumAngle = Quaternion.Angle(panelToUse.rotation, minimumToUse);
+        float differenceInMaximumAngle = Quaternion.Angle(panelToUse.rotation, maximumToUse);
+
+        //Returns true if we're too close to the rotational bounds
+        if (shouldStopAtThreshold && ((amountToRotate < 0 && differenceInMinimumAngle < minimumStopThreshold) || (amountToRotate > 0 && differenceInMaximumAngle < minimumStopThreshold)))
+        {
+            Debug.Log("We are too close to the edge; can't move any farther");
+            return true;
+        }
+        return false;
     }
 }
