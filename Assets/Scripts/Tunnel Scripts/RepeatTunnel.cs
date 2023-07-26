@@ -6,14 +6,11 @@ using UnityEngine;
 public class RepeatTunnel : MonoBehaviour
 {
     public float speed = 5;
-    public float behindplayer = 14;
-    public float teleporttoZ;
-    List<Transform> tunnels = new List<Transform>();
-    private Transform lastTunnel;
-    public bool shouldmovetunnel = true;
+    public float behindPlayer = -2;
+
+    readonly List<Transform> tunnels = new List<Transform>();
     void Start()
     {
-
         for (int i = 0; i < transform.childCount; i++)
         {
             Transform tunnel = transform.GetChild(i);
@@ -28,8 +25,9 @@ public class RepeatTunnel : MonoBehaviour
 
         for (int i = 0; i < tunnels.Count; i++)
         {
-            Transform teleport = tunnels[i];
-            if (teleport.transform.position.z >= behindplayer)
+            Transform tunnelToTeleport = tunnels[i];
+
+            if (tunnelToTeleport.transform.position.z >= behindPlayer)
             {
                 float smallestZ = tunnels[0].transform.position.z;
                 for (int n = 0; n < tunnels.Count; n++)
@@ -37,14 +35,12 @@ public class RepeatTunnel : MonoBehaviour
                     if (smallestZ > tunnels[n].transform.position.z)
                     {
                         smallestZ = tunnels[n].transform.position.z;
-                        lastTunnel = tunnels[n];
                     }
                 }
 
-                float lengthofpanel = teleport.GetChild(0).GetComponent<Collider>().bounds.size.z;
+                float lengthOfPanel = tunnelToTeleport.GetChild(0).GetComponent<Collider>().bounds.size.z;
 
-                tunnels[i].transform.position = new Vector3(0, 0, smallestZ - lengthofpanel);
-                    
+                tunnels[i].transform.position = new Vector3(0, 0, smallestZ - lengthOfPanel);
             }
         }
     }
