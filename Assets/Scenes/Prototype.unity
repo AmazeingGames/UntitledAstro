@@ -5443,9 +5443,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 902554708, guid: 21618e48296893549a232293ea3c2668, type: 3}
-      propertyPath: behindPlayer
-      value: -2
+    - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: speed
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7181072125050121217, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: m_RootOrder
