@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RepeatTunnel : MonoBehaviour
 {
+    public bool shouldMove;
+    
     public float speed = 5;
     public float behindPlayer = -2;
 
@@ -21,27 +23,31 @@ public class RepeatTunnel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(speed * Time.deltaTime * Vector3.forward);
-
-        for (int i = 0; i < tunnels.Count; i++)
+        if (shouldMove)
         {
-            Transform tunnelToTeleport = tunnels[i];
+            transform.Translate(speed * Time.deltaTime * Vector3.forward);
 
-            if (tunnelToTeleport.transform.position.z >= behindPlayer)
+            for (int i = 0; i < tunnels.Count; i++)
             {
-                float smallestZ = tunnels[0].transform.position.z;
-                for (int n = 0; n < tunnels.Count; n++)
+                Transform tunnelToTeleport = tunnels[i];
+
+                if (tunnelToTeleport.transform.position.z >= behindPlayer)
                 {
-                    if (smallestZ > tunnels[n].transform.position.z)
+                    float smallestZ = tunnels[0].transform.position.z;
+                    for (int n = 0; n < tunnels.Count; n++)
                     {
-                        smallestZ = tunnels[n].transform.position.z;
+                        if (smallestZ > tunnels[n].transform.position.z)
+                        {
+                            smallestZ = tunnels[n].transform.position.z;
+                        }
                     }
+
+                    float lengthOfPanel = tunnelToTeleport.GetChild(0).GetComponent<Collider>().bounds.size.z;
+
+                    tunnels[i].transform.position = new Vector3(0, 0, smallestZ - lengthOfPanel);
                 }
-
-                float lengthOfPanel = tunnelToTeleport.GetChild(0).GetComponent<Collider>().bounds.size.z;
-
-                tunnels[i].transform.position = new Vector3(0, 0, smallestZ - lengthOfPanel);
             }
         }
+        
     }
 }

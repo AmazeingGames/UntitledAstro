@@ -10,6 +10,7 @@ public class SpinTunnel : MonoBehaviour
 {
     //SerializeField is virtually the same as using public, as it allows the variable to be set in the inspector, i.e. making it serialized, without the downside of having it be accessible via other scripts. This is considered a good coding practice. - Amazeing
 
+    [SerializeField] float flipRotationSpeed;
     [SerializeField] float speed = 5;
 
     [SerializeField] bool shouldRotatePanels = true;
@@ -18,7 +19,15 @@ public class SpinTunnel : MonoBehaviour
 
     [SerializeField] Transform botPanel;
     [SerializeField] Transform topPanel;
+
+    RepeatTunnel repeatTunnel;
+    
     bool isOnBottom = true;
+    bool shouldFlip = false;
+    bool isFlipping = false;
+    bool canMove = true;
+
+    Quaternion target;
 
     readonly Quaternion bottomMinimum = new Quaternion(0.00000f, 0.00000f, 0.96498f, 0.26234f); //(150)
     readonly Quaternion bottomMaximum = new Quaternion(0.00000f, 0.00000f, 0.70968f, -0.70452f); //(90)
@@ -31,6 +40,8 @@ public class SpinTunnel : MonoBehaviour
 
     void Start()
     {
+        repeatTunnel = GetComponent<RepeatTunnel>();
+
         int tunnelsToGet = transform.childCount;
 
         for (int i = 0; i < tunnelsToGet; i++)
@@ -64,45 +75,83 @@ public class SpinTunnel : MonoBehaviour
 
     void FlipTunnels()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !isFlipping)
         {
             isOnBottom = !isOnBottom;
+            shouldFlip = true;
 
             Debug.Log("We Flipped!");
+        }
 
+        if (shouldFlip)
+        {
             for (int i = 0; i < listOfPanels.Count; i++)
             {
                 for (int n = 0; n < listOfPanels[i].Count; n++)
                 {
                     //Flips all the tunnels by 180 degrees
                     var panel = listOfPanels[i][n];
-                    panel.rotation *= Quaternion.AngleAxis(180, Vector3.forward);
+                    target = panel.rotation * Quaternion.AngleAxis(180, Vector3.forward);
+
+                    StartCoroutine(RotatePanel(panel, target));
                 }
             }
+
+            
+
         }
     } 
+
+    IEnumerator RotatePanel(Transform panel, Quaternion target)
+    {
+        repeatTunnel.shouldMove = false;
+        shouldFlip = false;
+        isFlipping = true;
+        canMove = false;
+
+        Debug.Log($"started corutine. {panel.name}");
+        while (true)
+        {
+            panel.Rotate(0, 0, flipRotationSpeed);
+
+            float differenceFromTarget = Quaternion.Angle(panel.rotation, target);
+
+            if (differenceFromTarget < .8f)
+            {
+                repeatTunnel.shouldMove = true;
+                isFlipping = false;
+                canMove = true;
+
+                yield break;
+            }
+            yield return null;
+        }
+    }
 
     //Rotates all the tunnels according to the horizontal axes keys (left, right)
     void RotateTunnels()
     {
-        Debug.Log("Bot Panel: " + botPanel.rotation);
-        Debug.Log("Top Panel: " + topPanel.rotation);
-        
-        float input = Input.GetAxisRaw("Horizontal");
-        float amountToRotate = speed * input * Time.deltaTime;
-
-        if (ShouldStopRotating(amountToRotate))
-            return;
-
-        for (int i = 0; i < listOfPanels.Count; i++)
+        if (canMove)
         {
-            for (int n = 0; n < listOfPanels[i].Count; n++)
+            //Debug.Log("Bot Panel: " + botPanel.rotation);
+            //Debug.Log("Top Panel: " + topPanel.rotation);
+
+            float input = Input.GetAxisRaw("Horizontal");
+            float amountToRotate = speed * input * Time.deltaTime;
+
+            if (ShouldStopRotating(amountToRotate))
+                return;
+
+            for (int i = 0; i < listOfPanels.Count; i++)
             {
+                for (int n = 0; n < listOfPanels[i].Count; n++)
+                {
 
-                var currentList = listOfPanels[i];
-                var panel = currentList[n];
+                    var currentList = listOfPanels[i];
+                    var panel = currentList[n];
 
-                panel.Rotate(0f, 0f, amountToRotate);
+                    panel.Rotate(0f, 0f, amountToRotate);
+                }
             }
         }
     }
