@@ -25,11 +25,13 @@ public class Pause : MonoBehaviour
             {
                 Time.timeScale = 0;
                 GamePaused.Invoke();
+                
             }
             else
             {
                 Time.timeScale = 1;
                 GameResumed.Invoke();
+                
             }
         }
     }

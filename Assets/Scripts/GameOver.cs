@@ -5,9 +5,10 @@ using UnityEngine;
 public class GameOver : MonoBehaviour
 {
     private bool gameOver = false;
+    private GameObject GameOverCanvas;
     void Start()
     {
-        
+    
     }
 
     // Update is called once per frame
@@ -20,8 +21,8 @@ public class GameOver : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Debug.Log("Game Over");
-            gameOver = true;
+           gameOver = true;
+           GameOverCanvas.SetActive(true);
         }
     }
 }
