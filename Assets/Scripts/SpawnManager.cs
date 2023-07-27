@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
-    public GameObject asteroidPrefab;
+    public GameObject obstacle;
     private Vector3 spawnPos = new Vector3(0, 0, 0);
-    private float startDelay = 2;
+    private float spawnInterval = 2;
     private float repeatRate = 2;
     void Start()
     {
-        InvokeRepeating("SpawnObstacle", startDelay, repeatRate);
+        InvokeRepeating("SpawnObstacle", spawnInterval, repeatRate);
     }
 
     // Update is called once per frame
@@ -21,7 +21,7 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnObstacle()
     {
-        Instantiate(asteroidPrefab, spawnPos, asteroidPrefab.transform.rotation);
+        Instantiate(obstacle, spawnPos, obstacle.transform.rotation);
     }
 
 }
