@@ -85,8 +85,8 @@ public class SpinTunnel : MonoBehaviour
     //Rotates all the tunnels according to the horizontal axes keys (left, right)
     void RotateTunnels()
     {
-        Debug.Log("Bot Panel: " + botPanel.rotation);
-        Debug.Log("Top Panel: " + topPanel.rotation);
+        //Debug.Log("Bot Panel: " + botPanel.rotation);
+        //Debug.Log("Top Panel: " + topPanel.rotation);
         
         float input = Input.GetAxisRaw("Horizontal");
         float amountToRotate = speed * input * Time.deltaTime;
@@ -98,7 +98,6 @@ public class SpinTunnel : MonoBehaviour
         {
             for (int n = 0; n < listOfPanels[i].Count; n++)
             {
-
                 var currentList = listOfPanels[i];
                 var panel = currentList[n];
 

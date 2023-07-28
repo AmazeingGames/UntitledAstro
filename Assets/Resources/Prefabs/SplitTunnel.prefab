@@ -106,7 +106,7 @@ PrefabInstance:
       objectReference: {fileID: 2974397684917235467, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
-      value: top-right panel
+      value: topRight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c16462116cd85614a9644656a2dff88b, type: 3}
@@ -202,7 +202,7 @@ PrefabInstance:
       objectReference: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
-      value: bot-left panel
+      value: botLeft
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c16462116cd85614a9644656a2dff88b, type: 3}
@@ -298,7 +298,7 @@ PrefabInstance:
       objectReference: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
-      value: top-left panel
+      value: topLeft
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c16462116cd85614a9644656a2dff88b, type: 3}
@@ -394,7 +394,7 @@ PrefabInstance:
       objectReference: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
-      value: top panel
+      value: top
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_IsActive
@@ -494,7 +494,7 @@ PrefabInstance:
       objectReference: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
-      value: bot panel
+      value: bot
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c16462116cd85614a9644656a2dff88b, type: 3}
@@ -590,7 +590,7 @@ PrefabInstance:
       objectReference: {fileID: 5721338939258241955, guid: 0000000000000000d000000000000000, type: 0}
     - target: {fileID: 919132149155446097, guid: c16462116cd85614a9644656a2dff88b, type: 3}
       propertyPath: m_Name
-      value: bot-right panel
+      value: botRight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c16462116cd85614a9644656a2dff88b, type: 3}
