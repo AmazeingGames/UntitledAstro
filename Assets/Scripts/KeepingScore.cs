@@ -5,18 +5,18 @@ using TMPro;
 
 public class KeepingScore : MonoBehaviour
 {
-    private int score;
     public TextMeshProUGUI scoreText;
-    public bool isGameActive;
+    public TextMeshProUGUI highScoreText;
+
+    private int score = 0;
+    private int highscore = 0;
     void Start()
     {
-        isGameActive = true;
-        score = 0;
         
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //if player moves forward in z axis 1 unit
        
@@ -28,7 +28,21 @@ public class KeepingScore : MonoBehaviour
 
     public void UpdateScore(int scoreToAdd)
     {
-        score += scoreToAdd; 
+        score += scoreToAdd;
         scoreText.text = "Score:" + score;
+    }
+
+    void CheckHighScore()
+    {
+        if (score > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", score);
+            UpdateHighScoreText();
+        }
+    }
+
+    void UpdateHighScoreText()
+    {
+        highScoreText.text = $"HighScore: {PlayerPrefs.GetInt("HighScore", 0)}";
     }
 }
