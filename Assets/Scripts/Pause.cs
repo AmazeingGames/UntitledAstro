@@ -9,6 +9,7 @@ public class Pause : MonoBehaviour
     public UnityEvent GamePaused;
     public UnityEvent GameResumed;
 
+    [SerializeField] GameObject creditsCanvas;
     GameObject mainMenuCanvas;
     
     public bool IsPaused { get; private set; }
@@ -23,7 +24,7 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!mainMenuCanvas.activeInHierarchy)
+        if (!mainMenuCanvas.activeInHierarchy && !creditsCanvas.activeInHierarchy)
         {
             IsGameRunning = true;
 

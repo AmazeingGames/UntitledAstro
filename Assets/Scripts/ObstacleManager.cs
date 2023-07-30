@@ -118,12 +118,17 @@ public class ObstacleManager : MonoBehaviour
 
     IEnumerator SpawnObstacles()
     {
+        hasCoroutineStarted = true;
+
         while (true)
         {
+            Debug.Log($"IsGameRunning: {pause.IsGameRunning} | IsPaused: {pause.IsPaused}");
             if (!pause.IsGameRunning || pause.IsPaused)
+            {
+                yield return null;
                 continue;
+            }
 
-            hasCoroutineStarted = true;
             for (int i = 0; i < ObstaclesToSpawnPer; i++)
             {
                 SpawnRoadblock();
