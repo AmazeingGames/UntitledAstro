@@ -6,29 +6,30 @@ using TMPro;
 public class KeepingScore : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
-    public TextMeshProUGUI highScoreText;
+    public TextMeshProUGUI highscoreText;
+    public TextMeshProUGUI GoScoretext;
+    public TextMeshProUGUI GohighScoretext;
 
     private int score = 0;
     private int highscore = 0;
     void Start()
     {
         highscore = PlayerPrefs.GetInt("High Score:", highscore);
-        highScoreText.text = highscore.ToString();
+        highscoreText.text = $"HighScore: {PlayerPrefs.GetInt("High Score:", 0)}";
+        GoScoretext.text = scoreText.text;
+        GohighScoretext.text = $"HighScore: {PlayerPrefs.GetInt("High Score:", 0)}";
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        //if player moves forward in z axis 1 unit
-       
-        {
-            UpdateScore(1); //add 1 score to score.
-        }
-        
-        if(score > highscore)
+
+        UpdateScore(1);
+
+        if (score > highscore)
         {
             highscore = score;
-            highScoreText.text = "High Score:" + highscore;
+            highscoreText.text = "High Score:" + highscore;
         }
     }
 
@@ -36,6 +37,7 @@ public class KeepingScore : MonoBehaviour
     {
         score += scoreToAdd;
         scoreText.text = "Score:" + score;
+        CheckHighScore();
     }
 
     void CheckHighScore() //if player beats highscore, remembers new highscore.
@@ -49,6 +51,6 @@ public class KeepingScore : MonoBehaviour
 
     void UpdateHighScoreText() //remembers new highscore.
     {
-        highScoreText.text = $"HighScore: {PlayerPrefs.GetInt("High Score:", 0)}";
+        highscoreText.text = $"High Score: {PlayerPrefs.GetInt("High Score:", 0)}";
     }
 }

@@ -11,4 +11,12 @@ public class MuteAudio : MonoBehaviour
             AudioListener.volume = 0;
         }
     }
+
+    public void Play(bool Played)
+    {
+        if (Played)
+        {
+            AudioListener.volume = 1;
+        }
+    }
 }

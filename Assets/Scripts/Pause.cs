@@ -8,6 +8,8 @@ public class Pause : MonoBehaviour
 {
     public UnityEvent GamePaused;
     public UnityEvent GameResumed;
+    public UnityEvent MainMenuOn;
+    public UnityEvent MainMenuOff;
     private bool isPaused;
     void Start()
     {
