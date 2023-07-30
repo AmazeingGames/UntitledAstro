@@ -12,7 +12,8 @@ public class KeepingScore : MonoBehaviour
     private int highscore = 0;
     void Start()
     {
-        
+        highscore = PlayerPrefs.GetInt("High Score:", highscore);
+        highScoreText.text = highscore.ToString();
     }
 
     // Update is called once per frame
@@ -24,25 +25,30 @@ public class KeepingScore : MonoBehaviour
             UpdateScore(1); //add 1 score to score.
         }
         
+        if(score > highscore)
+        {
+            highscore = score;
+            highScoreText.text = "High Score:" + highscore;
+        }
     }
 
-    public void UpdateScore(int scoreToAdd)
+    public void UpdateScore(int scoreToAdd) //score is added for every second player is alive.
     {
         score += scoreToAdd;
         scoreText.text = "Score:" + score;
     }
 
-    void CheckHighScore()
-    {
-        if (score > PlayerPrefs.GetInt("HighScore", 0))
+    void CheckHighScore() //if player beats highscore, remembers new highscore.
+    { 
+        if (score > PlayerPrefs.GetInt("High Score:", 0)) 
         {
-            PlayerPrefs.SetInt("HighScore", score);
+            PlayerPrefs.SetInt("High Score:", score);
             UpdateHighScoreText();
         }
     }
 
-    void UpdateHighScoreText()
+    void UpdateHighScoreText() //remembers new highscore.
     {
-        highScoreText.text = $"HighScore: {PlayerPrefs.GetInt("HighScore", 0)}";
+        highScoreText.text = $"HighScore: {PlayerPrefs.GetInt("High Score:", 0)}";
     }
 }
