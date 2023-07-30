@@ -8,32 +8,34 @@ public class Pause : MonoBehaviour
 {
     public UnityEvent GamePaused;
     public UnityEvent GameResumed;
-    public UnityEvent MainMenuOn;
-    public UnityEvent MainMenuOff;
+    private GameObject mainMenuCanvas;
     private bool isPaused;
     void Start()
     {
-        
+        mainMenuCanvas = GameObject.Find("MainMenuCanvas");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (mainMenuCanvas.activeInHierarchy)
         {
-            isPaused = !isPaused;
-            
-            if (isPaused)
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                Time.timeScale = 0;
-                GamePaused.Invoke();
-                
-            }
-            else
-            {
-                Time.timeScale = 1;
-                GameResumed.Invoke();
-                
+                isPaused = !isPaused;
+
+                if (isPaused)
+                {
+                    Time.timeScale = 0;
+                    GamePaused.Invoke();
+
+                }
+                else
+                {
+                    Time.timeScale = 1;
+                    GameResumed.Invoke();
+
+                }
             }
         }
     }

@@ -7,6 +7,7 @@ public class LevelChanger : MonoBehaviour
     public Animator animator;
 
     private int levelToLoad;
+
     void Update()
     {
         if (Input.GetButton("Restart Button"))
