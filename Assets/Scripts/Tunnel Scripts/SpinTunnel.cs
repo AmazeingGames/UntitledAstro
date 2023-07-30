@@ -89,11 +89,11 @@ public class SpinTunnel : MonoBehaviour
 
         if (shouldFlip)
         {
-            FlipAllPanels(180, true);
+            FlipAllPanels(180, true, true);
         }
     }
 
-    void FlipAllPanels(float degrees, bool spinClockwise)
+    void FlipAllPanels(float degrees, bool spinClockwise, bool stopTunnelMovement)
     {
         for (int i = 0; i < listOfPanels.Count; i++)
         {
@@ -103,14 +103,16 @@ public class SpinTunnel : MonoBehaviour
                 var panel = listOfPanels[i][n];
                 target = panel.rotation * Quaternion.AngleAxis(degrees, Vector3.back);
 
-                StartCoroutine(RotatePanel(panel, target, spinClockwise));
+                StartCoroutine(RotatePanel(panel, target, spinClockwise, stopTunnelMovement));
             }
         }
     }
 
-    IEnumerator RotatePanel(Transform panel, Quaternion target, bool spinClockwise)
+    IEnumerator RotatePanel(Transform panel, Quaternion target, bool spinClockwise, bool stopTunnelMovement)
     {
-        repeatTunnel.canMove = false;
+        if (stopTunnelMovement)
+            repeatTunnel.canMove = false;
+
         shouldFlip = false;
         isFlipping = true;
         canRotate = false;
@@ -164,9 +166,9 @@ public class SpinTunnel : MonoBehaviour
                 }
             }
         }
+
         else
         {
-
             float input = Input.GetAxisRaw("Horizontal");
 
             if (Input.GetButtonDown("Horizontal"))
@@ -181,7 +183,7 @@ public class SpinTunnel : MonoBehaviour
                 if (input < 0)
                     spinClockwise = false;                
 
-                FlipAllPanels(-degreesToSnap * input, spinClockwise);
+                FlipAllPanels(-degreesToSnap * input, spinClockwise, false);
             }
 
         }
