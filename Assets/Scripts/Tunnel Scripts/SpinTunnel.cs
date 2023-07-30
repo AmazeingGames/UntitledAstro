@@ -147,9 +147,12 @@ public class SpinTunnel : MonoBehaviour
         if (!canRotate)
             return;
 
+        
+
+        float input = Input.GetAxisRaw("Horizontal");
+
         if (rotateSmoothly)
         {
-            float input = Input.GetAxisRaw("Horizontal");
             float amountToRotate = speed * input * Time.deltaTime;
 
             if (ShouldStopRotating(amountToRotate))
@@ -166,26 +169,24 @@ public class SpinTunnel : MonoBehaviour
                 }
             }
         }
-
         else
         {
-            float input = Input.GetAxisRaw("Horizontal");
+            //Not sure if this loop is needed
+            //for (int i = 0; i < listOfPanels.Count; i++)
+            //{
+                if (Input.GetButtonDown("Horizontal"))
+                {
+                    if (input == 0)
+                        return;
 
-            if (Input.GetButtonDown("Horizontal"))
-            {
-                Debug.Log($"input: {input}");
+                    bool spinClockwise = true;
 
-                if (input == 0)
-                    return;
+                    if (input < 0)
+                        spinClockwise = false;
 
-                bool spinClockwise = true;
-
-                if (input < 0)
-                    spinClockwise = false;                
-
-                FlipAllPanels(-degreesToSnap * input, spinClockwise, false);
-            }
-
+                    FlipAllPanels(-degreesToSnap * input, spinClockwise, false);
+                }
+            //}
         }
     }
         
