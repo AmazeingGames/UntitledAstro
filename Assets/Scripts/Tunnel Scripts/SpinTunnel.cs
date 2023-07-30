@@ -166,10 +166,16 @@ public class SpinTunnel : MonoBehaviour
         }
         else
         {
+
             float input = Input.GetAxisRaw("Horizontal");
 
             if (Input.GetButtonDown("Horizontal"))
             {
+                Debug.Log($"input: {input}");
+
+                if (input == 0)
+                    return;
+
                 bool spinClockwise = true;
 
                 if (input < 0)
