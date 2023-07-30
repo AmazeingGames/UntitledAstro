@@ -6,13 +6,12 @@ public class LevelChanger : MonoBehaviour
 {
     public Animator animator;
 
-    private int levelToLoad;
-
     void Update()
     {
         if (Input.GetButton("Restart Button"))
         {
             FadeToLevel(0);
+            Time.timeScale = 1.0f;
         }
     }
 
