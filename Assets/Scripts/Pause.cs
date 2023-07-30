@@ -18,7 +18,7 @@ public class Pause : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (mainMenuCanvas.activeInHierarchy)
+        if (!mainMenuCanvas.activeInHierarchy)
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
