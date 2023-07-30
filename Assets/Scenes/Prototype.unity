@@ -5338,6 +5338,9 @@ MonoBehaviour:
   obstacleData:
   - {fileID: 11400000, guid: d36b81f3a2f3aec4ba51ddc0ecc5262e, type: 2}
   obstaclePoolSizePerObject: 50
+  ObstaclesToSpawnPer: 0
+  timeBetweenObstacles: 0.25
+  hasGameBegan: 1
 --- !u!1 &698041548 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3118167272131167490, guid: c623b51bd2472604e921bf8c4f5883ef, type: 3}
@@ -5495,8 +5498,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: shouldStopAtThreshold
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 902554708, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: speed
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 902554708, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: fixedRandom
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 902554708, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: fixedRandomNumber
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7181072125050121217, guid: 21618e48296893549a232293ea3c2668, type: 3}

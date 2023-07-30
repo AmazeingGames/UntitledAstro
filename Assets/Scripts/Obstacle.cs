@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using static ObstacleData;
 
+//I think all the code related to obstacle spawning may be stupid and overengineered and needlessly scalable, but it is what it is
 public class Obstacle : MonoBehaviour
 {
     [field: SerializeField] public ObstacleData ObstacleData { get; private set; }
     public GameObject ObstacleInstance { get; private set; }
 
+    public float differenceFromRef;
 
     // Start is called before the first frame update
     void Start()
@@ -22,7 +24,6 @@ public class Obstacle : MonoBehaviour
 
         Spin();
         MatchObstacleData();
-
     }
 
     void Spin()
@@ -48,11 +49,9 @@ public class Obstacle : MonoBehaviour
 
     void MatchObstacleData()
     {
-        Debug.Log($"position: {transform.localPosition} | instance rotation: {ObstacleInstance.transform.localRotation}");
+        //Debug.Log($"position: {transform.localPosition} | instance rotation: {ObstacleInstance.transform.localRotation}");
 
         SetGlobalScale(transform, ObstacleData.ConstantScale);
-
-        Debug.Log($"position: {transform.localPosition} | instance rotation: {ObstacleInstance.transform.localRotation}");
 
     }
 

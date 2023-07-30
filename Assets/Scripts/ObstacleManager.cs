@@ -10,13 +10,38 @@ public class ObstacleManager : MonoBehaviour
 {
     Transform obstaclePool;
 
+    [SerializeField] GameObject splitTunnelReference;
+    GameObject splitTunnelInstance;
+
     [SerializeField] Obstacle obstacleObject;
 
     [SerializeField] List<ObstacleData> obstacleData = new();
     [SerializeField] int obstaclePoolSizePerObject;
 
+    [SerializeField] int ObstaclesToSpawnPer;
+    [SerializeField] float timeBetweenObstacles;
+
+    public bool hasGameBegan = true;
+
     GameObject tunnelManager;
     RepeatTunnel repeatTunnel;
+
+    Dictionary<String, Quaternion> panelReferenceRotation = new Dictionary<string, Quaternion>()
+    {
+        { "top",        new Quaternion(0.00000f, 0.00000f, 0.25882f, 0.96593f) },
+        { "topLeft",    new Quaternion(0.00000f, 0.00000f, -0.25882f, 0.96593f) },
+        { "topRight",   new Quaternion(0.00000f, 0.00000f, 0.70711f, 0.70711f) },
+        { "bot",        new Quaternion(0.00000f, 0.00000f, 0.96593f, -0.25882f) },
+        { "botLeft",     new Quaternion(0.00000f, 0.00000f, -0.70711f, 0.70711f) },
+        { "botRight",   new Quaternion(0.00000f, 0.00000f, 0.96593f, 0.25882f) },
+    };
+
+    bool hasCoroutineStarted = false;
+
+    void Awake()
+    {
+        StartCoroutine(CreateObstaclePool());
+    }
 
     void Start()
     {
@@ -24,12 +49,16 @@ public class ObstacleManager : MonoBehaviour
         tunnelManager = GameObject.Find("TunnelManager");
 
         repeatTunnel = tunnelManager.GetComponent<RepeatTunnel>();
+
+        //What this does is call this function (RemoveObstacles) whenever the evenet (resetTunnel) is called
+        repeatTunnel.ResetTunnel += RemoveObstacles;
+
+        splitTunnelInstance = Instantiate(splitTunnelReference);
+
+        splitTunnelInstance.transform.position = new Vector3(0, -20);
     }
 
-    void Awake()
-    {
-        StartCoroutine(CreateObstaclePool());    
-    }
+    
 
     private void Update()
     {
@@ -37,7 +66,11 @@ public class ObstacleManager : MonoBehaviour
         {
             SpawnRoadblock();
         }
+
+        if (hasGameBegan && !hasCoroutineStarted)
+            StartCoroutine(SpawnObstacles());
     }
+
 
     IEnumerator CreateObstaclePool()
     {
@@ -78,6 +111,56 @@ public class ObstacleManager : MonoBehaviour
         return null;
     }
 
+    IEnumerator SpawnObstacles()
+    {
+        while (true)
+        {
+            hasCoroutineStarted = true;
+            for (int i = 0; i < ObstaclesToSpawnPer; i++)
+            {
+                SpawnRoadblock();
+            }
+            yield return new WaitForSeconds(timeBetweenObstacles);
+        }
+    }
+
+
+    void RemoveObstacles(Transform tunnel)
+    {
+        List<Transform> panels = RepeatTunnel.GetPanelsFromTunnel(tunnel);
+
+        for (int i = 0; i < panels.Count; i++) 
+        {
+            var currentPanel = panels[i];
+
+            for (int n = 0; n < currentPanel.childCount; n++)
+            {
+                var currentObstacle = currentPanel.GetChild(n);
+
+                ReturnToObstaclePool(currentObstacle);
+            }
+        }
+    }
+
+    void ReturnToObstaclePool(Transform obstacle)
+    {
+        if (obstacle == null)
+        {
+            Debug.LogWarning("ObstacleNull");
+            return;
+        }
+
+        if (obstacle.GetComponent<Obstacle>() == null)
+        {
+            Debug.LogWarning("NotObstacle");
+            return;
+        }
+
+        obstacle.gameObject.SetActive(false);
+        obstacle.transform.SetParent(obstaclePool);
+    }
+
+    //This code is so hack and I am never working with rotations ever again.
     void SpawnRoadblock()
     {
         var obstacle = GetFromObstaclePool();
@@ -87,43 +170,85 @@ public class ObstacleManager : MonoBehaviour
 
         obstacle.SetActive(true);
 
-        var panel = repeatTunnel.GetRandomPanel();
+        var spawnPanel = repeatTunnel.GetRandomPanel();
 
-        obstacle.transform.SetParent(panel, true);
+        Obstacle obstacleObstacle = obstacle.GetComponent<Obstacle>();
 
-        obstacle.transform.localPosition = Vector3.zero;
+        Quaternion obstacleRotation = new();
+        Vector3 obstaclePosition = new();
 
-        switch (panel.name)
+        switch (spawnPanel.name)
         {
             case "top":
+                obstaclePosition = (new Vector3(0.00428f, 0.00754f));
+
+                obstacleRotation = new Quaternion(0.50000f, -0.50000f, -0.50000f, 0.50000f);
                 break;
 
             case "topLeft":
-                Debug.Log(panel.name);
+                obstaclePosition = (new Vector3(0.00439f, 0.00767f));
+
+                obstacleRotation = new Quaternion(-0.68301f, 0.18301f, 0.68301f, -0.18301f);
                 break;
 
             case "topRight":
-                Debug.Log(panel.name);
+                obstaclePosition = (new Vector3(0.00431f, 0.00755f));
+
+                obstacleRotation = new Quaternion(0.18301f, -0.68301f, -0.18301f, 0.68301f);
                 break;
 
             case "bot":
-                obstacle.transform.localPosition = (new Vector3(0.0045f, 0.00768f));
+                obstaclePosition = (new Vector3(0.0045f, 0.00768f));
 
-                Obstacle obstacleObstacle = obstacle.GetComponent<Obstacle>();
-
-                obstacleObstacle.ObstacleInstance.transform.localRotation = new Quaternion(0.50000f, 0.50000f, -0.50000f, -0.50000f);
-
-                Debug.Log($"obstacle position: {obstacle.transform.localPosition}");
+                obstacleRotation = new Quaternion(0.50000f, 0.50000f, -0.50000f, -0.50000f);
                 break;
 
             case "botLeft":
-                Debug.Log(panel.name);
+                obstaclePosition = (new Vector3(0.00437f, 0.00754f));
+
+                obstacleRotation = new Quaternion(-0.68301f, -0.18301f, 0.68301f, 0.18301f);
                 break;
 
             case "botRight":
-                Debug.Log(panel.name);
+                obstaclePosition = (new Vector3(0.00437f, 0.00762f));
+
+                obstacleRotation = new Quaternion(-0.18301f, -0.68301f, 0.18301f, 0.68301f);
                 break;
         }
+
+        //Degrees difference from the panel's reference rotation vs the actualy rotation
+        //All I need to do is subtract the current z rotation by this number
+        float differenceFromReference = Quaternion.Angle(spawnPanel.localRotation, panelReferenceRotation[spawnPanel.name]);
+
+        Debug.Log($"difference from reference: {differenceFromReference}");
+
+        Transform panelMatch = null;
+
+        for (int i = 0; i < splitTunnelInstance.transform.childCount; i++)
+        {
+            var child = splitTunnelInstance.transform.GetChild(i);
+            
+            child.transform.localRotation = panelReferenceRotation[child.name];
+
+            if (child.name == spawnPanel.name)
+            {
+                panelMatch = child;
+            }
+        }
+
+        obstacle.transform.SetParent(panelMatch, true);
+
+        obstacle.transform.localPosition = obstaclePosition;
+
+        obstacleObstacle.ObstacleInstance.transform.localRotation = obstacleRotation;
+
+        panelMatch.transform.localRotation = spawnPanel.transform.localRotation;
+
+        obstacle.transform.SetParent(spawnPanel, true);
+
+        obstacle.transform.localPosition = obstaclePosition;
+
+
 
     }
 }
