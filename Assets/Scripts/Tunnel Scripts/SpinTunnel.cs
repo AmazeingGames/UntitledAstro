@@ -22,6 +22,9 @@ public class SpinTunnel : MonoBehaviour
     bool isFlipping = false;
     bool canRotate = true;
 
+    GameObject gameManager;
+    Pause pause;
+
     Quaternion target;
 
     [SerializeField] float speed = 5;
@@ -44,6 +47,9 @@ public class SpinTunnel : MonoBehaviour
 
     void Start()
     {
+        gameManager = GameObject.Find("GameManager");
+        pause = gameManager.GetComponent<Pause>();
+
         int tunnelsToGet = transform.childCount;
 
         repeatTunnel = GetComponent<RepeatTunnel>();
@@ -72,6 +78,9 @@ public class SpinTunnel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!pause.IsGameRunning || pause.IsPaused)
+            return;
+
         RotateTunnels();
 
         FlipTunnels();
@@ -147,17 +156,19 @@ public class SpinTunnel : MonoBehaviour
         if (!canRotate)
             return;
 
-        
-
         float input = Input.GetAxisRaw("Horizontal");
+        float amountToRotate;
+
+        if (rotateSmoothly)
+            amountToRotate = speed * input * Time.deltaTime;
+        else
+            amountToRotate = degreesToSnap * input;
+
+        if (ShouldStopRotating(amountToRotate))
+            return;
 
         if (rotateSmoothly)
         {
-            float amountToRotate = speed * input * Time.deltaTime;
-
-            if (ShouldStopRotating(amountToRotate))
-                return;
-
             for (int i = 0; i < listOfPanels.Count; i++)
             {
                 for (int n = 0; n < listOfPanels[i].Count; n++)
@@ -171,22 +182,18 @@ public class SpinTunnel : MonoBehaviour
         }
         else
         {
-            //Not sure if this loop is needed
-            //for (int i = 0; i < listOfPanels.Count; i++)
-            //{
-                if (Input.GetButtonDown("Horizontal"))
-                {
-                    if (input == 0)
-                        return;
+            if (Input.GetButtonDown("Horizontal"))
+            {
+                if (input == 0)
+                    return;
 
-                    bool spinClockwise = true;
+                bool spinClockwise = true;
 
-                    if (input < 0)
-                        spinClockwise = false;
+                if (input < 0)
+                    spinClockwise = false;
 
-                    FlipAllPanels(-degreesToSnap * input, spinClockwise, false);
-                }
-            //}
+                FlipAllPanels(-amountToRotate, spinClockwise, false);
+            }
         }
     }
         

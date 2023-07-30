@@ -25,10 +25,6 @@ public class ObjectPool : MonoBehaviour
             pooledObjects.Add(tmp);
         }
     }
-    void Update()
-    {
-        
-    }
 
     public GameObject GetPooledObject()
     {

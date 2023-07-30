@@ -21,8 +21,7 @@ public class ObstacleManager : MonoBehaviour
     [SerializeField] int ObstaclesToSpawnPer;
     [SerializeField] float timeBetweenObstacles;
 
-    public bool hasGameBegan = true;
-
+    Pause pause;
     GameObject tunnelManager;
     RepeatTunnel repeatTunnel;
 
@@ -50,10 +49,10 @@ public class ObstacleManager : MonoBehaviour
     {
         obstaclePool = GameObject.Find("Obstacle Pool").transform;
         tunnelManager = GameObject.Find("TunnelManager");
+        pause = GetComponent<Pause>();
 
         repeatTunnel = tunnelManager.GetComponent<RepeatTunnel>();
 
-        //What this does is call this function (RemoveObstacles) whenever the evenet (resetTunnel) is called
         repeatTunnel.ResetTunnel += RemoveObstacles;
 
         splitTunnelInstance = Instantiate(splitTunnelReference);
@@ -70,7 +69,7 @@ public class ObstacleManager : MonoBehaviour
             SpawnRoadblock();
         }
 
-        if (hasGameBegan && !hasCoroutineStarted)
+        if (!hasCoroutineStarted)
             StartCoroutine(SpawnObstacles());
     }
 
@@ -121,6 +120,9 @@ public class ObstacleManager : MonoBehaviour
     {
         while (true)
         {
+            if (!pause.IsGameRunning || pause.IsPaused)
+                continue;
+
             hasCoroutineStarted = true;
             for (int i = 0; i < ObstaclesToSpawnPer; i++)
             {

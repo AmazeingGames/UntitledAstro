@@ -6,10 +6,8 @@ using static ObstacleData;
 //I think all the code related to obstacle spawning may be stupid and overengineered and needlessly scalable, but it is what it is
 public class Obstacle : MonoBehaviour
 {
-    [field: SerializeField] public ObstacleData ObstacleData { get; private set; }
+    public ObstacleData ObstacleData { get; private set; }
     public GameObject ObstacleInstance { get; private set; }
-
-    public float differenceFromRef;
 
     // Start is called before the first frame update
     void Start()
