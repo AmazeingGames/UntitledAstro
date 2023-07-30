@@ -85,7 +85,7 @@ public class RepeatTunnel : MonoBehaviour
         var panelsList = new List<Transform>();
 
         for (int i = 0; i < tunnel.childCount; i++)
-            panelsList.Add(tunnel.GetChild(0));   
+            panelsList.Add(tunnel.GetChild(i));
 
         return panelsList;
     }

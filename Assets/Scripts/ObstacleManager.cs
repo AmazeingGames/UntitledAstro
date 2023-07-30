@@ -26,6 +26,9 @@ public class ObstacleManager : MonoBehaviour
     GameObject tunnelManager;
     RepeatTunnel repeatTunnel;
 
+    Quaternion startingObstacleRotation;
+    Vector3 startingObstaclePosition;
+
     Dictionary<String, Quaternion> panelReferenceRotation = new Dictionary<string, Quaternion>()
     {
         { "top",        new Quaternion(0.00000f, 0.00000f, 0.25882f, 0.96593f) },
@@ -85,6 +88,9 @@ public class ObstacleManager : MonoBehaviour
             {
                 var currentObstacle = Instantiate(obstacleObject, obstaclePool);
 
+                startingObstacleRotation = currentObstacle.transform.rotation;
+                startingObstaclePosition = currentObstacle.transform.position;
+
                 currentObstacle.SetObstacleData(obstacleData[n]);
             }
         }
@@ -125,25 +131,28 @@ public class ObstacleManager : MonoBehaviour
     }
 
 
+    //I don't know why, but this function doesn't work properly. Sometimes panels are removed sometimes they're not. It all has to do with "obstacle.transform.SetParent(obstaclePool);" for some reason.
     void RemoveObstacles(Transform tunnel)
     {
-        List<Transform> panels = RepeatTunnel.GetPanelsFromTunnel(tunnel);
+        List<Transform> panelsList = RepeatTunnel.GetPanelsFromTunnel(tunnel);
 
-        for (int i = 0; i < panels.Count; i++) 
+        for (int i = 0; i < panelsList.Count; i++) 
         {
-            var currentPanel = panels[i];
+            Debug.Log($"PanelsList Count: {panelsList.Count}");
+            
+            var currentPanel = panelsList[i];
 
             for (int n = 0; n < currentPanel.childCount; n++)
             {
-                var currentObstacle = currentPanel.GetChild(n);
-
-                ReturnToObstaclePool(currentObstacle);
+                ReturnToObstaclePool(currentPanel.GetChild(n));
             }
         }
     }
 
     void ReturnToObstaclePool(Transform obstacle)
     {
+        Debug.Log("moved to obstacle pool");
+
         if (obstacle == null)
         {
             Debug.LogWarning("ObstacleNull");
@@ -156,13 +165,17 @@ public class ObstacleManager : MonoBehaviour
             return;
         }
 
-        obstacle.gameObject.SetActive(false);
         obstacle.transform.SetParent(obstaclePool);
+
+        obstacle.gameObject.SetActive(false);
+        obstacle.transform.rotation = startingObstacleRotation;
+        obstacle.transform.position = startingObstaclePosition;
     }
 
     //This code is so hack and I am never working with rotations ever again.
     void SpawnRoadblock()
     {
+        Debug.Log("Spawned Obstacle");
         var obstacle = GetFromObstaclePool();
 
         if (obstacle == null)
@@ -216,38 +229,28 @@ public class ObstacleManager : MonoBehaviour
                 break;
         }
 
-        //Degrees difference from the panel's reference rotation vs the actualy rotation
-        //All I need to do is subtract the current z rotation by this number
-        float differenceFromReference = Quaternion.Angle(spawnPanel.localRotation, panelReferenceRotation[spawnPanel.name]);
-
-        Debug.Log($"difference from reference: {differenceFromReference}");
-
-        Transform panelMatch = null;
-
         for (int i = 0; i < splitTunnelInstance.transform.childCount; i++)
         {
             var child = splitTunnelInstance.transform.GetChild(i);
-            
-            child.transform.localRotation = panelReferenceRotation[child.name];
-
+  
             if (child.name == spawnPanel.name)
             {
-                panelMatch = child;
+                child.transform.localRotation = panelReferenceRotation[child.name];
+                obstacle.transform.SetParent(child, true);
+                
+                obstacle.transform.localPosition = obstaclePosition;
+                obstacleObstacle.ObstacleInstance.transform.localRotation = obstacleRotation;
+
+                child.transform.localRotation = spawnPanel.transform.localRotation;
+                
+                obstacle.transform.SetParent(spawnPanel, true);
+
+                obstacle.transform.localPosition = obstaclePosition;
+                break;
             }
         }
 
-        obstacle.transform.SetParent(panelMatch, true);
-
-        obstacle.transform.localPosition = obstaclePosition;
-
-        obstacleObstacle.ObstacleInstance.transform.localRotation = obstacleRotation;
-
-        panelMatch.transform.localRotation = spawnPanel.transform.localRotation;
-
-        obstacle.transform.SetParent(spawnPanel, true);
-
-        obstacle.transform.localPosition = obstaclePosition;
-
+        
 
 
     }
