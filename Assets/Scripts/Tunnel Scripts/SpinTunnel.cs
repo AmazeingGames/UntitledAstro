@@ -3,12 +3,23 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Windows;
+using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.DebugUI;
 using Input = UnityEngine.Input;
 
 public class SpinTunnel : MonoBehaviour
 {
     //SerializeField is virtually the same as using public, as it allows the variable to be set in the inspector, i.e. making it serialized, without the downside of having it be accessible via other scripts. This is considered a good coding practice. - Amazeing
+
+    [SerializeField] float flipRotationSpeed;
+    RepeatTunnel repeatTunnel;
+
+    bool isOnBottom = true;
+    bool shouldFlip = false;
+    bool isFlipping = false;
+    bool canRotate = true;
+
+    Quaternion target;
 
     [SerializeField] float speed = 5;
 
@@ -18,7 +29,6 @@ public class SpinTunnel : MonoBehaviour
 
     [SerializeField] Transform botPanel;
     [SerializeField] Transform topPanel;
-    bool isOnBottom = true;
 
     readonly Quaternion bottomMinimum = new Quaternion(0.00000f, 0.00000f, 0.96498f, 0.26234f); //(150)
     readonly Quaternion bottomMaximum = new Quaternion(0.00000f, 0.00000f, 0.70968f, -0.70452f); //(90)
@@ -32,6 +42,8 @@ public class SpinTunnel : MonoBehaviour
     void Start()
     {
         int tunnelsToGet = transform.childCount;
+
+        repeatTunnel = GetComponent<RepeatTunnel>();
 
         for (int i = 0; i < tunnelsToGet; i++)
         {
@@ -64,30 +76,64 @@ public class SpinTunnel : MonoBehaviour
 
     void FlipTunnels()
     {
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetButtonDown("Jump") && !isFlipping)
         {
             isOnBottom = !isOnBottom;
+            shouldFlip = true;
 
             Debug.Log("We Flipped!");
+        }
 
+        if (shouldFlip)
+        {
             for (int i = 0; i < listOfPanels.Count; i++)
             {
                 for (int n = 0; n < listOfPanels[i].Count; n++)
                 {
                     //Flips all the tunnels by 180 degrees
                     var panel = listOfPanels[i][n];
-                    panel.rotation *= Quaternion.AngleAxis(180, Vector3.forward);
+                    target = panel.rotation * Quaternion.AngleAxis(180, Vector3.forward);
+
+                    StartCoroutine(RotatePanel(panel, target));
                 }
             }
         }
-    } 
+    }
+
+    IEnumerator RotatePanel(Transform panel, Quaternion target)
+    {
+        repeatTunnel.canMove = false;
+        shouldFlip = false;
+        isFlipping = true;
+        canRotate = false;
+
+        Debug.Log($"started corutine. {panel.name}");
+        while (true)
+        {
+            panel.Rotate(0, 0, flipRotationSpeed);
+
+            float differenceFromTarget = Quaternion.Angle(panel.rotation, target);
+
+            if (differenceFromTarget < .5f)
+            {
+                repeatTunnel.canMove = true;
+                isFlipping = false;
+                canRotate = true;
+
+                yield break;
+            }
+            yield return null;
+        }
+    }
 
     //Rotates all the tunnels according to the horizontal axes keys (left, right)
     void RotateTunnels()
     {
         //Debug.Log("Bot Panel: " + botPanel.rotation);
         //Debug.Log("Top Panel: " + topPanel.rotation);
-        
+        if (!canRotate)
+            return;
+
         float input = Input.GetAxisRaw("Horizontal");
         float amountToRotate = speed * input * Time.deltaTime;
 

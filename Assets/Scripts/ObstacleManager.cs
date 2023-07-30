@@ -138,7 +138,6 @@ public class ObstacleManager : MonoBehaviour
 
         for (int i = 0; i < panelsList.Count; i++) 
         {
-            Debug.Log($"PanelsList Count: {panelsList.Count}");
             
             var currentPanel = panelsList[i];
 
@@ -151,8 +150,6 @@ public class ObstacleManager : MonoBehaviour
 
     void ReturnToObstaclePool(Transform obstacle)
     {
-        Debug.Log("moved to obstacle pool");
-
         if (obstacle == null)
         {
             Debug.LogWarning("ObstacleNull");
@@ -175,7 +172,6 @@ public class ObstacleManager : MonoBehaviour
     //This code is so hack and I am never working with rotations ever again.
     void SpawnRoadblock()
     {
-        Debug.Log("Spawned Obstacle");
         var obstacle = GetFromObstaclePool();
 
         if (obstacle == null)
