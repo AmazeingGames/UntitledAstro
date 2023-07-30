@@ -5509,7 +5509,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: flipRotationSpeed
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: snapRotateAmountLeft
