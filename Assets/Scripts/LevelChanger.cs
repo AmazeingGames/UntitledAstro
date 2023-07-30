@@ -9,7 +9,7 @@ public class LevelChanger : MonoBehaviour
     private int levelToLoad;
     void Update()
     {
-        if (Input.GetButton("RestartButton"))
+        if (Input.GetButton("Restart Button"))
         {
             FadeToLevel(0);
         }
