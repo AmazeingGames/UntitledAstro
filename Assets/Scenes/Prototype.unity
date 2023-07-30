@@ -5334,11 +5334,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b91a475e29616e4695b43da4458b05a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  splitTunnelReference: {fileID: 4511497699694708757, guid: 5dcc1b2aeaf566145ba88473b44e1394, type: 3}
   obstacleObject: {fileID: -921709514502860413, guid: c4687ca59d9ddc44b853007306527e55, type: 3}
   obstacleData:
   - {fileID: 11400000, guid: d36b81f3a2f3aec4ba51ddc0ecc5262e, type: 2}
   obstaclePoolSizePerObject: 50
-  ObstaclesToSpawnPer: 0
+  ObstaclesToSpawnPer: 1
   timeBetweenObstacles: 0.25
   hasGameBegan: 1
 --- !u!1 &698041548 stripped
@@ -5504,7 +5505,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 902554708, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: speed
-      value: 0
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 902554708, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: fixedRandom

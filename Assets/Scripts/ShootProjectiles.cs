@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ShootProjectiles : MonoBehaviour
 {
-    public GameObject SpawnProjectile;
-    public AudioSource ShootingSound;
-    public ObjectPool GameManager;
+    [SerializeField] bool canShoot;
+    GameObject SpawnProjectile;
+    AudioSource ShootingSound;
+    ObjectPool GameManager;
     // Start is called before the first frame update
     void Start()
 
@@ -19,7 +20,7 @@ public class ShootProjectiles : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (canShoot && Input.GetButtonDown("Fire1"))
         {
             ShootingSound.Play();
             var projectile = GameManager.GetPooledObject();
