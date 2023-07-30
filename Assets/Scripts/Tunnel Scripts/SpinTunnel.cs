@@ -12,6 +12,9 @@ public class SpinTunnel : MonoBehaviour
     //SerializeField is virtually the same as using public, as it allows the variable to be set in the inspector, i.e. making it serialized, without the downside of having it be accessible via other scripts. This is considered a good coding practice. - Amazeing
 
     [SerializeField] float flipRotationSpeed;
+    [SerializeField] bool rotateSmoothly;
+
+    [SerializeField] float degreesToSnap;
     RepeatTunnel repeatTunnel;
 
     bool isOnBottom = true;
@@ -86,31 +89,41 @@ public class SpinTunnel : MonoBehaviour
 
         if (shouldFlip)
         {
-            for (int i = 0; i < listOfPanels.Count; i++)
-            {
-                for (int n = 0; n < listOfPanels[i].Count; n++)
-                {
-                    //Flips all the tunnels by 180 degrees
-                    var panel = listOfPanels[i][n];
-                    target = panel.rotation * Quaternion.AngleAxis(180, Vector3.forward);
+            FlipAllPanels(180, true);
+        }
+    }
 
-                    StartCoroutine(RotatePanel(panel, target));
-                }
+    void FlipAllPanels(float degrees, bool spinClockwise)
+    {
+        for (int i = 0; i < listOfPanels.Count; i++)
+        {
+            for (int n = 0; n < listOfPanels[i].Count; n++)
+            {
+                //Flips all the tunnels by 180 degrees
+                var panel = listOfPanels[i][n];
+                target = panel.rotation * Quaternion.AngleAxis(degrees, Vector3.back);
+
+                StartCoroutine(RotatePanel(panel, target, spinClockwise));
             }
         }
     }
 
-    IEnumerator RotatePanel(Transform panel, Quaternion target)
+    IEnumerator RotatePanel(Transform panel, Quaternion target, bool spinClockwise)
     {
         repeatTunnel.canMove = false;
         shouldFlip = false;
         isFlipping = true;
         canRotate = false;
 
-        Debug.Log($"started corutine. {panel.name}");
         while (true)
         {
-            panel.Rotate(0, 0, flipRotationSpeed);
+            int spinDirection = 1;
+            if (!spinClockwise)
+            {
+                spinDirection = -1;
+            }
+
+            panel.Rotate(0, 0, flipRotationSpeed * spinDirection);
 
             float differenceFromTarget = Quaternion.Angle(panel.rotation, target);
 
@@ -129,28 +142,45 @@ public class SpinTunnel : MonoBehaviour
     //Rotates all the tunnels according to the horizontal axes keys (left, right)
     void RotateTunnels()
     {
-        //Debug.Log("Bot Panel: " + botPanel.rotation);
-        //Debug.Log("Top Panel: " + topPanel.rotation);
         if (!canRotate)
             return;
 
-        float input = Input.GetAxisRaw("Horizontal");
-        float amountToRotate = speed * input * Time.deltaTime;
-
-        if (ShouldStopRotating(amountToRotate))
-            return;
-
-        for (int i = 0; i < listOfPanels.Count; i++)
+        if (rotateSmoothly)
         {
-            for (int n = 0; n < listOfPanels[i].Count; n++)
-            {
-                var currentList = listOfPanels[i];
-                var panel = currentList[n];
+            float input = Input.GetAxisRaw("Horizontal");
+            float amountToRotate = speed * input * Time.deltaTime;
 
-                panel.Rotate(0f, 0f, amountToRotate);
+            if (ShouldStopRotating(amountToRotate))
+                return;
+
+            for (int i = 0; i < listOfPanels.Count; i++)
+            {
+                for (int n = 0; n < listOfPanels[i].Count; n++)
+                {
+                    var currentList = listOfPanels[i];
+                    var panel = currentList[n];
+
+                    panel.Rotate(0f, 0f, amountToRotate);
+                }
             }
         }
+        else
+        {
+            float input = Input.GetAxisRaw("Horizontal");
+
+            if (Input.GetButtonDown("Horizontal"))
+            {
+                bool spinClockwise = true;
+
+                if (input < 0)
+                    spinClockwise = false;                
+
+                FlipAllPanels(-degreesToSnap * input, spinClockwise);
+            }
+
+        }
     }
+        
 
     bool ShouldStopRotating(float amountToRotate)
     {

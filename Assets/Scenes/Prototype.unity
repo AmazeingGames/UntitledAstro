@@ -5500,12 +5500,36 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: degreesToSnap
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: snapRotateAmount
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: flipRotationSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: snapRotateAmountLeft
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: shouldStopAtThreshold
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: snapRotateAmountRight
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 902554708, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: speed
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 902554708, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: canMove
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 902554708, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: fixedRandom
