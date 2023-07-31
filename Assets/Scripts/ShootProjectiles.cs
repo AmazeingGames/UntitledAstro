@@ -10,7 +10,6 @@ public class ShootProjectiles : MonoBehaviour
     ObjectPool GameManager;
     // Start is called before the first frame update
     void Start()
-
     {
         GameManager = GameObject.Find("GameManager").GetComponent<ObjectPool>();
         SpawnProjectile = GameObject.Find("SpawnProjectile");
@@ -27,7 +26,7 @@ public class ShootProjectiles : MonoBehaviour
             if (projectile != null)
             {
                 projectile.SetActive(true);
-                projectile.transform.position = SpawnProjectile.transform.position;
+                projectile.GetComponent<Projectile>().SetStartingPosition();
             }
             
         }
