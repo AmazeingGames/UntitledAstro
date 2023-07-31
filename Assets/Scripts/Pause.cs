@@ -10,21 +10,27 @@ public class Pause : MonoBehaviour
     public UnityEvent GameResumed;
 
     [SerializeField] GameObject creditsCanvas;
+    
+    GameOver gameOver;
     GameObject mainMenuCanvas;
     
     public bool IsPaused { get; private set; }
     public bool IsGameRunning { get; private set; } = false;
+    public bool IsGameOver { get; private set; } = false;
 
     void Start()
     {
         mainMenuCanvas = GameObject.Find("MainMenuCanvas");
+        gameOver = GetComponent<GameOver>();
+
+        gameOver.GameOverEvent += HandleGameOver;
     }
 
 
     // Update is called once per frame
     void Update()
     {
-        if (!mainMenuCanvas.activeInHierarchy && !creditsCanvas.activeInHierarchy)
+        if (!mainMenuCanvas.activeInHierarchy && !creditsCanvas.activeInHierarchy && !IsGameOver)
         {
             IsGameRunning = true;
 
@@ -48,5 +54,13 @@ public class Pause : MonoBehaviour
         }
         else
             IsGameRunning = false;
+    }
+
+    void HandleGameOver()
+    {
+        Debug.Log("Game Over handled");
+        IsGameRunning = false;
+        IsPaused = true;
+        IsGameOver = true;
     }
 }

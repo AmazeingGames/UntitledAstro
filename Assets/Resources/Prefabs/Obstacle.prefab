@@ -44,4 +44,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed4df7cb1ca5aaf4ba55a3756467efad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <ObstacleData>k__BackingField: {fileID: 0}
+  distanceForGameOver: {x: 0.15, y: 0.15, z: 0.12}

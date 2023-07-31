@@ -1,28 +1,38 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class GameOver : MonoBehaviour
 {
-    private bool gameOver = false;
-    private GameObject GameOverCanvas;
-    void Start()
-    {
-    
-    }
+    [SerializeField] GameObject GameOverCanvas;
+    [SerializeField] TextMeshProUGUI YourScoreValueText;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public Action EndGame;
+    public event Action GameOverEvent;
 
-    private void OnCollisionEnter(Collision collision)
+    KeepingScore keepingScore;
+
+    private void Awake()
     {
-        if (collision.gameObject.CompareTag("Enemy"))
+        EndGame += OnGameOver;
+
+        if (gameObject.GetComponent<KeepingScore>() == null)
         {
-           gameOver = true;
-           GameOverCanvas.SetActive(true);
+            Debug.Log("can't find score");
         }
+
+        keepingScore = gameObject.GetComponent<KeepingScore>();
+    }
+
+    void OnGameOver()
+    {
+        Debug.Log("end game");
+        GameOverCanvas.SetActive(true);
+
+        YourScoreValueText.text = $"Score: {keepingScore.Score}";
+
+        GameOverEvent.Invoke();
     }
 }

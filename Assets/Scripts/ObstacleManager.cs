@@ -122,7 +122,8 @@ public class ObstacleManager : MonoBehaviour
 
         while (true)
         {
-            Debug.Log($"IsGameRunning: {pause.IsGameRunning} | IsPaused: {pause.IsPaused}");
+            //Debug.Log($"IsGameRunning: {pause.IsGameRunning} | IsPaused: {pause.IsPaused}");
+
             if (!pause.IsGameRunning || pause.IsPaused)
             {
                 yield return null;
