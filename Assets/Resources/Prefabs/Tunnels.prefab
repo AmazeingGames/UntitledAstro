@@ -50,7 +50,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba7fafd2d7719b24291d8df9fe10e1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flipRotationSpeed: 2
+  flipRotationSpeed: 2.5
   rotateSmoothly: 0
   degreesToSnap: 60
   speed: 90
