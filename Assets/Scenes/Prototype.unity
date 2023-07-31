@@ -6727,6 +6727,7 @@ GameObject:
   - component: {fileID: 520338012}
   - component: {fileID: 520338013}
   - component: {fileID: 520338014}
+  - component: {fileID: 520338015}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6962,6 +6963,20 @@ MonoBehaviour:
   obstaclePoolSizePerObject: 50
   ObstaclesToSpawnPer: 1
   timeBetweenObstacles: 0.25
+--- !u!114 &520338015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520338005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c05aa3bf0552f9c4fbf3021bbd6f7005, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameOverCanvas: {fileID: 1167993564}
+  YourScoreValueText: {fileID: 193452313}
 --- !u!1001 &535493870
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -56,6 +56,7 @@ public class Obstacle : MonoBehaviour
             {
                 if (Mathf.Abs(ObstacleInstance.transform.position.y - playerModel.transform.position.y) < distanceForGameOver.y)
                 {
+                    Debug.Log($"game over is null? : {GameOver == null} | Manager is null? : {GameManager == null}");
                     GameOver.EndGame();
                 }
             }
