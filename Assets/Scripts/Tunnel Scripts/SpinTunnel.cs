@@ -12,6 +12,7 @@ public class SpinTunnel : MonoBehaviour
     //SerializeField is virtually the same as using public, as it allows the variable to be set in the inspector, i.e. making it serialized, without the downside of having it be accessible via other scripts. This is considered a good coding practice. - Amazeing
 
     [SerializeField] float flipRotationSpeed;
+    [SerializeField] float snapRotationSpeed;
     [SerializeField] bool rotateSmoothly;
 
     [SerializeField] float degreesToSnap;
@@ -98,11 +99,11 @@ public class SpinTunnel : MonoBehaviour
 
         if (shouldFlip)
         {
-            FlipAllPanels(180, true, true);
+            FlipAllPanels(180, true, true, snapRotationSpeed);
         }
     }
 
-    void FlipAllPanels(float degrees, bool spinClockwise, bool stopTunnelMovement)
+    void FlipAllPanels(float degrees, bool spinClockwise, bool stopTunnelMovement, float rotationSpeed)
     {
         for (int i = 0; i < listOfPanels.Count; i++)
         {
@@ -112,41 +113,8 @@ public class SpinTunnel : MonoBehaviour
                 var panel = listOfPanels[i][n];
                 target = panel.rotation * Quaternion.AngleAxis(degrees, Vector3.back);
 
-                StartCoroutine(RotatePanel(panel, target, spinClockwise, stopTunnelMovement));
+                StartCoroutine(RotatePanel(panel, target, spinClockwise, stopTunnelMovement, flipRotationSpeed));
             }
-        }
-    }
-
-    IEnumerator RotatePanel(Transform panel, Quaternion target, bool spinClockwise, bool stopTunnelMovement)
-    {
-        if (stopTunnelMovement)
-            repeatTunnel.canMove = false;
-
-        shouldFlip = false;
-        isFlipping = true;
-        canRotate = false;
-
-        while (true)
-        {
-            int spinDirection = 1;
-            if (!spinClockwise)
-            {
-                spinDirection = -1;
-            }
-
-            panel.Rotate(0, 0, flipRotationSpeed * spinDirection);
-
-            float differenceFromTarget = Quaternion.Angle(panel.rotation, target);
-
-            if (differenceFromTarget < .5f)
-            {
-                repeatTunnel.canMove = true;
-                isFlipping = false;
-                canRotate = true;
-
-                yield break;
-            }
-            yield return null;
         }
     }
 
@@ -192,10 +160,45 @@ public class SpinTunnel : MonoBehaviour
                 if (input < 0)
                     spinClockwise = false;
 
-                FlipAllPanels(-amountToRotate, spinClockwise, false);
+                FlipAllPanels(-amountToRotate, spinClockwise, false, snapRotationSpeed);
             }
         }
     }
+
+    IEnumerator RotatePanel(Transform panel, Quaternion target, bool spinClockwise, bool stopTunnelMovement, float rotationSpeed)
+    {
+        if (stopTunnelMovement)
+            repeatTunnel.canMove = false;
+
+        shouldFlip = false;
+        isFlipping = true;
+        canRotate = false;
+
+        while (true)
+        {
+            int spinDirection = 1;
+            if (!spinClockwise)
+            {
+                spinDirection = -1;
+            }
+
+            panel.Rotate(0, 0, rotationSpeed * spinDirection);
+
+            float differenceFromTarget = Quaternion.Angle(panel.rotation, target);
+
+            if (differenceFromTarget < .5f)
+            {
+                repeatTunnel.canMove = true;
+                isFlipping = false;
+                canRotate = true;
+
+                yield break;
+            }
+            yield return null;
+        }
+    }
+
+    
         
 
     bool ShouldStopRotating(float amountToRotate)
