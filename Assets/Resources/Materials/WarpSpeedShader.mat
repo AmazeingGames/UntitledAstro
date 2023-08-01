@@ -21,10 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: WarpSpeedShader
-  m_Shader: {fileID: -6465566751694194690, guid: 968833eb14cdb924db4408118c88e19c,
-    type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
+  m_Shader: {fileID: -6465566751694194690, guid: 968833eb14cdb924db4408118c88e19c, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -33,7 +30,6 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -63,7 +59,7 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - Color_8756377E: {r: 0.7142118, g: 1.1640263, b: 3.0314326, a: 1}
+    - Color_8756377E: {r: 0.8807461, g: 0.32623884, b: 1.8326948, a: 1}
     - Vector2_8B1BE341: {r: 0, g: 1, b: 0, a: 0}
-    - Vector2_A6F95D3F: {r: 0, g: -1, b: 0, a: 0}
+    - Vector2_A6F95D3F: {r: 0, g: -0.5, b: 0, a: 0}
   m_BuildTextureStacks: []
