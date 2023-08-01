@@ -6728,6 +6728,7 @@ GameObject:
   - component: {fileID: 520338013}
   - component: {fileID: 520338014}
   - component: {fileID: 520338015}
+  - component: {fileID: 520338016}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -6977,6 +6978,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameOverCanvas: {fileID: 1167993564}
   YourScoreValueText: {fileID: 193452313}
+--- !u!114 &520338016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 520338005}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21d9783a6a0657e40b106dac4e351356, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &535493870
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8023,7 +8036,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 34.707703, y: 0, z: 99.50586, w: 26.2191}
+  m_margin: {x: 19.553467, y: 0, z: 99.50586, w: 26.2191}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -19309,7 +19322,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4e77f9b9c8321874583ee5a7722843a1, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 4d51ecfadb83ae04bbf5d2447252c303, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -25851,6 +25864,23 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 943271525}
+    - target: {fileID: 4300714700924579915, guid: 89f1d7079b609bf4da3c99b08ac2dd84, type: 3}
+      propertyPath: m_text
+      value: 'Coding: Flare, Adrian
+
+
+        Models/VFX: Dev
+
+
+        Audio: Blake
+        Danner
+
+
+        Design: heysamesam
+
+
+        Music: FabienC@RustedStudio'
+      objectReference: {fileID: 0}
     - target: {fileID: 4300714700924579915, guid: 89f1d7079b609bf4da3c99b08ac2dd84, type: 3}
       propertyPath: m_fontAsset
       value: 
