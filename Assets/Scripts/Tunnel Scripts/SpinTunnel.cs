@@ -113,7 +113,7 @@ public class SpinTunnel : MonoBehaviour
                 var panel = listOfPanels[i][n];
                 target = panel.rotation * Quaternion.AngleAxis(degrees, Vector3.back);
 
-                StartCoroutine(RotatePanel(panel, target, spinClockwise, stopTunnelMovement, flipRotationSpeed));
+                StartCoroutine(RotatePanel(panel, target, spinClockwise, stopTunnelMovement, rotationSpeed));
             }
         }
     }

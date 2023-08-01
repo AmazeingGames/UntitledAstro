@@ -7846,7 +7846,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: flipRotationSpeed
-      value: 2.5
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: snapRotationSpeed
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7181072125050121217, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: m_RootOrder
@@ -25710,6 +25714,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 7
       objectReference: {fileID: 0}
+    - target: {fileID: 5688709821986671350, guid: c623b51bd2472604e921bf8c4f5883ef, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6692205884917141713, guid: c623b51bd2472604e921bf8c4f5883ef, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -25725,6 +25733,10 @@ PrefabInstance:
     - target: {fileID: 8004823062746650422, guid: c623b51bd2472604e921bf8c4f5883ef, type: 3}
       propertyPath: m_RootOrder
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8011751215405314629, guid: c623b51bd2472604e921bf8c4f5883ef, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 9160770767109241856, guid: c623b51bd2472604e921bf8c4f5883ef, type: 3}
       propertyPath: m_RootOrder
