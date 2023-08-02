@@ -2,14 +2,13 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.UIElements;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GameOver : MonoBehaviour
 {
-    public UnityEvent onCollision;
-    
     [SerializeField] GameObject GameOverCanvas;
     [SerializeField] TextMeshProUGUI YourScoreValueText;
 
@@ -28,11 +27,6 @@ public class GameOver : MonoBehaviour
         }
 
         keepingScore = gameObject.GetComponent<KeepingScore>();
-    }
-
-    private void Update()
-    {
-        
     }
 
     void OnGameOver()
