@@ -7908,6 +7908,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
+      propertyPath: canTunnelFlip
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: flipRotationSpeed
       value: 6
       objectReference: {fileID: 0}
@@ -25808,6 +25812,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4300714698982356714, guid: 89f1d7079b609bf4da3c99b08ac2dd84, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 67ed43993c4611e4aa03767571251c35, type: 2}
+    - target: {fileID: 4300714698982356714, guid: 89f1d7079b609bf4da3c99b08ac2dd84, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4300714699622831898, guid: 89f1d7079b609bf4da3c99b08ac2dd84, type: 3}
       propertyPath: m_Name
       value: CreditsCanvas

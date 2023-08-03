@@ -11,6 +11,7 @@ public class SpinTunnel : MonoBehaviour
 {
     //SerializeField is virtually the same as using public, as it allows the variable to be set in the inspector, i.e. making it serialized, without the downside of having it be accessible via other scripts. This is considered a good coding practice. - Amazeing
 
+    [SerializeField] bool canTunnelFlip = true;
     [SerializeField] float flipRotationSpeed;
     [SerializeField] float snapRotationSpeed;
     [SerializeField] bool rotateSmoothly;
@@ -25,6 +26,8 @@ public class SpinTunnel : MonoBehaviour
 
     GameObject gameManager;
     Pause pause;
+
+    ObstacleManager obstacleManager;
 
     Quaternion target;
 
@@ -50,6 +53,7 @@ public class SpinTunnel : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager");
         pause = gameManager.GetComponent<Pause>();
+        obstacleManager = gameManager.GetComponent<ObstacleManager>();
 
         int tunnelsToGet = transform.childCount;
 
@@ -97,7 +101,7 @@ public class SpinTunnel : MonoBehaviour
             Debug.Log("We Flipped!");
         }
 
-        if (shouldFlip)
+        if (shouldFlip && canTunnelFlip)
         {
             FlipAllPanels(180, true, true, snapRotationSpeed);
         }
@@ -165,10 +169,13 @@ public class SpinTunnel : MonoBehaviour
         }
     }
 
-    IEnumerator RotatePanel(Transform panel, Quaternion target, bool spinClockwise, bool stopTunnelMovement, float rotationSpeed)
+    IEnumerator RotatePanel(Transform panel, Quaternion target, bool spinClockwise, bool shouldStopTunnelMovement, float rotationSpeed)
     {
-        if (stopTunnelMovement)
+        if (shouldStopTunnelMovement)
+        {
             repeatTunnel.canMove = false;
+            obstacleManager.SetShouldSpawnObstacles(false);
+        }
 
         shouldFlip = false;
         isFlipping = true;
@@ -188,6 +195,7 @@ public class SpinTunnel : MonoBehaviour
 
             if (differenceFromTarget < .5f)
             {
+                obstacleManager.SetShouldSpawnObstacles(true);
                 repeatTunnel.canMove = true;
                 isFlipping = false;
                 canRotate = true;
