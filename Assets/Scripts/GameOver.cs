@@ -28,6 +28,8 @@ public class GameOver : MonoBehaviour
         }
 
         keepingScore = gameObject.GetComponent<KeepingScore>();
+
+
     }
 
     void OnGameOver()
