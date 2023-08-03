@@ -184,7 +184,7 @@ MonoBehaviour:
   m_text: 'High Score: '
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67ed43993c4611e4aa03767571251c35, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2220823939162682928, guid: 67ed43993c4611e4aa03767571251c35, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -7702,12 +7702,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 600, y: 600}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -8354,7 +8354,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -8521,7 +8521,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: canTunnelFlip
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 294453872, guid: 21618e48296893549a232293ea3c2668, type: 3}
       propertyPath: snapSoundEffect
@@ -13757,7 +13757,7 @@ MonoBehaviour:
   m_text: 'Score:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67ed43993c4611e4aa03767571251c35, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2220823939162682928, guid: 67ed43993c4611e4aa03767571251c35, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -26074,7 +26074,7 @@ AudioSource:
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -26693,7 +26693,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1574382997061331363, guid: e07414bf0d3000647b2f287fabb526ea, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -4.95
       objectReference: {fileID: 0}
     - target: {fileID: 1574382997061331363, guid: e07414bf0d3000647b2f287fabb526ea, type: 3}
       propertyPath: m_LocalRotation.w

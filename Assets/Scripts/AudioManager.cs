@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 using static AudioManager;
+using static AudioManager.AudioClips;
 
 public class AudioManager : MonoBehaviour
 {
@@ -26,6 +27,12 @@ public class AudioManager : MonoBehaviour
         gameOver = gameManager.GetComponent<GameOver>();
 
         gameOver.EndGame += OnGameEnd;
+
+
+
+        PlayAudioClip(Thruster);
+
+        PlayAudioClip(Ambience);
     }
 
     // Update is called once per frame
@@ -36,7 +43,7 @@ public class AudioManager : MonoBehaviour
 
     public void OnGameEnd()
     {
-        PlayAudioClip(AudioClips.Explosion);
+        PlayAudioClip(Explosion);
     }
 
     public void OnClick()
