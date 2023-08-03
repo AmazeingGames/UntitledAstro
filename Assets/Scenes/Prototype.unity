@@ -876,7 +876,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 0.32182944, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7200,7 +7200,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scoreText: {fileID: 986943780}
   highscoreText: {fileID: 46645506}
-  GoScoretext: {fileID: 193452313}
+  GoScoreText: {fileID: 193452313}
   GohighScoretext: {fileID: 1676043194}
 --- !u!114 &520338014
 MonoBehaviour:
@@ -7234,7 +7234,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   GameOverCanvas: {fileID: 1167993564}
-  YourScoreValueText: {fileID: 193452313}
 --- !u!114 &520338016
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25566,7 +25565,7 @@ MonoBehaviour:
   m_fontColor32:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColor: {r: 1, g: 0.52769834, b: 0.042452812, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

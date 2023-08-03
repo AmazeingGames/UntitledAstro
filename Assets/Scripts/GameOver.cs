@@ -12,25 +12,13 @@ public class GameOver : MonoBehaviour
     public bool HasGameEnded { get; private set; } = false;
 
     [SerializeField] GameObject GameOverCanvas;
-    [SerializeField] TextMeshProUGUI YourScoreValueText;
 
     public Action EndGame;
     public event Action GameOverEvent;
 
-    KeepingScore keepingScore;
-
     private void Awake()
     {
         EndGame += OnGameOver;
-
-        if (gameObject.GetComponent<KeepingScore>() == null)
-        {
-            Debug.Log("can't find score");
-        }
-
-        keepingScore = gameObject.GetComponent<KeepingScore>();
-
-
     }
 
     void OnGameOver()
@@ -40,8 +28,6 @@ public class GameOver : MonoBehaviour
 
         HasGameEnded = true;
         GameOverCanvas.SetActive(true);
-
-        YourScoreValueText.text = $"Score: {keepingScore.Score}";
 
         GameOverEvent.Invoke();
     }

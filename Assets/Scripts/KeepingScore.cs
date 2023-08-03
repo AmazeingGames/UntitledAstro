@@ -6,11 +6,13 @@ using TMPro;
 public class KeepingScore : MonoBehaviour
 {
     GameObject gameManager;
+    GameOver gameOver;
     Pause pause;
 
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI highscoreText;
-    public TextMeshProUGUI GoScoretext;
+
+    public TextMeshProUGUI GoScoreText;
     public TextMeshProUGUI GohighScoretext;
 
     public int Score { get; private set; } = 0;
@@ -20,10 +22,13 @@ public class KeepingScore : MonoBehaviour
         gameManager = GameObject.Find("GameManager");
         pause = gameManager.GetComponent<Pause>();
 
+        gameOver = GetComponent<GameOver>();
+
         highscore = PlayerPrefs.GetInt("High Score:", highscore);
         highscoreText.text = $"HighScore: {PlayerPrefs.GetInt("High Score:", 0)}";
-        GoScoretext.text = scoreText.text;
-        GohighScoretext.text = $"HighScore: {PlayerPrefs.GetInt("High Score:", 0)}";
+
+        gameOver.GameOverEvent += OnGameEnd;
+
     }
 
     // Update is called once per frame
@@ -58,5 +63,11 @@ public class KeepingScore : MonoBehaviour
     void UpdateHighScoreText() //remembers new highscore.
     {
         highscoreText.text = $"High Score: {PlayerPrefs.GetInt("High Score:", 0)}";
+    }
+
+    void OnGameEnd()
+    {
+        GohighScoretext.text = $"{PlayerPrefs.GetInt("High Score:", 0)}";
+        GoScoreText.text = $"{Score}";
     }
 }
