@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor.UIElements;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class GameOver : MonoBehaviour
 {
+    private bool hasGameEnded = false;
     [SerializeField] GameObject GameOverCanvas;
     [SerializeField] TextMeshProUGUI YourScoreValueText;
 
@@ -24,11 +28,15 @@ public class GameOver : MonoBehaviour
         }
 
         keepingScore = gameObject.GetComponent<KeepingScore>();
+
+
     }
 
     void OnGameOver()
     {
-        Debug.Log("end game");
+        if (hasGameEnded == true) return;
+
+        hasGameEnded = true;
         GameOverCanvas.SetActive(true);
 
         YourScoreValueText.text = $"Score: {keepingScore.Score}";

@@ -11,6 +11,8 @@ public class RepeatTunnel : MonoBehaviour
     public event Action<Transform> ResetTunnel;
     public float speed = 5;
     public float behindPlayer = -2;
+    private GameOver gameOver;
+    public GameObject gameManager;
 
     public bool canMove = true;
     [SerializeField] bool fixedRandom = false;
@@ -30,6 +32,10 @@ public class RepeatTunnel : MonoBehaviour
             Transform tunnel = transform.GetChild(i);
             tunnels.Add(tunnel);
         }
+
+        gameManager = GameObject.Find("GameManager");
+        gameOver = gameManager.GetComponent<GameOver>();
+        gameOver.GameOverEvent += OnGameOver;
     }
 
     // Update is called once per frame
@@ -92,5 +98,10 @@ public class RepeatTunnel : MonoBehaviour
             panelsList.Add(tunnel.GetChild(i));
 
         return panelsList;
+    }
+
+    private void OnGameOver()
+    {
+        canMove = false;
     }
 }
