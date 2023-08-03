@@ -50,13 +50,20 @@ public class Obstacle : MonoBehaviour
         Spin();
         MatchObstacleData();
 
+        CheckGameOver();
+    }
+
+    void CheckGameOver()
+    {
+        if (GameOver.HasGameEnded)
+            return;
+
         if (Mathf.Abs(ObstacleInstance.transform.position.x - playerModel.transform.position.x) < distanceForGameOver.x)
         {
             if (Mathf.Abs(ObstacleInstance.transform.position.z - playerModel.transform.position.z) < distanceForGameOver.z)
             {
                 if (Mathf.Abs(ObstacleInstance.transform.position.y - playerModel.transform.position.y) < distanceForGameOver.y)
                 {
-                    Debug.Log($"game over is null? : {GameOver == null} | Manager is null? : {GameManager == null}");
                     GameOver.EndGame();
                 }
             }

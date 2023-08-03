@@ -24,6 +24,7 @@ public class ObstacleManager : MonoBehaviour
     Pause pause;
     GameObject tunnelManager;
     RepeatTunnel repeatTunnel;
+    AudioManager audioManager;
 
     bool shouldSpawnObstacles = true;
 
@@ -32,7 +33,7 @@ public class ObstacleManager : MonoBehaviour
     Quaternion startingObstacleRotation;
     Vector3 startingObstaclePosition;
 
-    Dictionary<String, Quaternion> panelReferenceRotation = new Dictionary<string, Quaternion>()
+    readonly Dictionary<String, Quaternion> panelReferenceRotation = new Dictionary<string, Quaternion>()
     {
         { "top",        new Quaternion(0.00000f, 0.00000f, 0.25882f, 0.96593f) },
         { "topLeft",    new Quaternion(0.00000f, 0.00000f, -0.25882f, 0.96593f) },
@@ -53,6 +54,7 @@ public class ObstacleManager : MonoBehaviour
     {
         obstaclePool = GameObject.Find("Obstacle Pool").transform;
         tunnelManager = GameObject.Find("TunnelManager");
+        audioManager = GetComponent<AudioManager>();
         pause = GetComponent<Pause>();
 
         repeatTunnel = tunnelManager.GetComponent<RepeatTunnel>();

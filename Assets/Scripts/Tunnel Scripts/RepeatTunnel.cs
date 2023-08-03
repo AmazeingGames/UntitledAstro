@@ -12,7 +12,7 @@ public class RepeatTunnel : MonoBehaviour
     public float speed = 5;
     public float behindPlayer = -2;
     private GameOver gameOver;
-    public GameObject gameManager;
+    GameObject gameManager;
 
     public bool canMove = true;
     [SerializeField] bool fixedRandom = false;

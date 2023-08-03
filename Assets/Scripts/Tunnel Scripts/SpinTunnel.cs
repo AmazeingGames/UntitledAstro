@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Windows;
 using static UnityEngine.GraphicsBuffer;
 using static UnityEngine.Rendering.DebugUI;
+using static AudioManager;
 using Input = UnityEngine.Input;
 
 public class SpinTunnel : MonoBehaviour
@@ -18,6 +19,8 @@ public class SpinTunnel : MonoBehaviour
 
     [SerializeField] float degreesToSnap;
     RepeatTunnel repeatTunnel;
+
+    AudioManager audioManager;
 
     bool isOnBottom = true;
     bool shouldFlip = false;
@@ -53,6 +56,7 @@ public class SpinTunnel : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager");
         pause = gameManager.GetComponent<Pause>();
+        audioManager = gameManager.GetComponent<AudioManager>();
         obstacleManager = gameManager.GetComponent<ObstacleManager>();
 
         int tunnelsToGet = transform.childCount;
@@ -103,12 +107,14 @@ public class SpinTunnel : MonoBehaviour
 
         if (shouldFlip && canTunnelFlip)
         {
-            FlipAllPanels(180, true, true, snapRotationSpeed);
+            FlipAllPanels(180, true, true, snapRotationSpeed, AudioClips.None);
         }
     }
 
-    void FlipAllPanels(float degrees, bool spinClockwise, bool stopTunnelMovement, float rotationSpeed)
+    void FlipAllPanels(float degrees, bool spinClockwise, bool stopTunnelMovement, float rotationSpeed, AudioClips soundEffectToPlay)
     {
+        audioManager.PlayAudioClip(soundEffectToPlay);
+
         for (int i = 0; i < listOfPanels.Count; i++)
         {
             for (int n = 0; n < listOfPanels[i].Count; n++)
@@ -164,7 +170,7 @@ public class SpinTunnel : MonoBehaviour
                 if (input < 0)
                     spinClockwise = false;
 
-                FlipAllPanels(-amountToRotate, spinClockwise, false, snapRotationSpeed);
+                FlipAllPanels(-amountToRotate, spinClockwise, false, snapRotationSpeed, AudioClips.SnapRotate);
             }
         }
     }
@@ -207,8 +213,6 @@ public class SpinTunnel : MonoBehaviour
     }
 
     
-        
-
     bool ShouldStopRotating(float amountToRotate)
     {
         Quaternion minimumToUse = isOnBottom ? bottomMinimum : topMinimum;
