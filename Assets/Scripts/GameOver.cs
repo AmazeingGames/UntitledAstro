@@ -9,6 +9,7 @@ using UnityEngine.Events;
 
 public class GameOver : MonoBehaviour
 {
+    private bool hasGameEnded = false;
     [SerializeField] GameObject GameOverCanvas;
     [SerializeField] TextMeshProUGUI YourScoreValueText;
 
@@ -31,7 +32,9 @@ public class GameOver : MonoBehaviour
 
     void OnGameOver()
     {
-        Debug.Log("end game");
+        if (hasGameEnded == true) return;
+
+        hasGameEnded = true;
         GameOverCanvas.SetActive(true);
 
         YourScoreValueText.text = $"Score: {keepingScore.Score}";
