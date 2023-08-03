@@ -25,6 +25,10 @@ public class ObstacleManager : MonoBehaviour
     GameObject tunnelManager;
     RepeatTunnel repeatTunnel;
 
+    bool shouldSpawnObstacles = true;
+
+    public void SetShouldSpawnObstacles(bool toSet) => shouldSpawnObstacles = toSet;
+
     Quaternion startingObstacleRotation;
     Vector3 startingObstaclePosition;
 
@@ -125,6 +129,12 @@ public class ObstacleManager : MonoBehaviour
             //Debug.Log($"IsGameRunning: {pause.IsGameRunning} | IsPaused: {pause.IsPaused}");
 
             if (!pause.IsGameRunning || pause.IsPaused)
+            {
+                yield return null;
+                continue;
+            }
+
+            if (!shouldSpawnObstacles)
             {
                 yield return null;
                 continue;
