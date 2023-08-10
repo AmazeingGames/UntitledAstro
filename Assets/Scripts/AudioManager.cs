@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using static AudioManager;
 using static AudioManager.AudioClips;
+using static ExtensionMethods;
 
 public class AudioManager : MonoBehaviour
 {
     GameObject gameManager;
     GameOver gameOver;
+
+    [SerializeField] AudioSource musicPlayer;
 
     [SerializeField] AudioSource shipThruster;
     [SerializeField] AudioSource TunneRotate;
@@ -16,6 +19,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioSource UIClick;
     [SerializeField] AudioSource ShipExplosion;
     [SerializeField] AudioSource AmbientSpace;
+
+    List<AudioSource> gameSounds = new();
 
     public enum AudioClips { Thruster, Ambience, SnapRotate, UIHover, UIClick, Explosion, None }
 
@@ -28,7 +33,7 @@ public class AudioManager : MonoBehaviour
 
         gameOver.EndGame += OnGameEnd;
 
-
+        gameSounds.AddMultiple(shipThruster, TunneRotate, UIHover, UIClick, ShipExplosion, AmbientSpace);
 
         PlayAudioClip(Thruster);
 
@@ -38,7 +43,7 @@ public class AudioManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void OnGameEnd()
@@ -54,19 +59,19 @@ public class AudioManager : MonoBehaviour
 
     public void OnEnter()
     {
-        PlayAudioClip(AudioClips.UIHover); 
+        PlayAudioClip(AudioClips.UIHover);
     }
 
     public void PlayAudioClip(AudioClips audioClipType)
     {
         AudioSource audioToPlay = audioClipType switch
         {
-            AudioClips.Ambience => AmbientSpace,
-            AudioClips.Thruster => shipThruster,
-            AudioClips.SnapRotate => TunneRotate,
+            Ambience => AmbientSpace,
+            Thruster => shipThruster,
+            SnapRotate => TunneRotate,
             AudioClips.UIHover => UIHover,
             AudioClips.UIClick => UIClick,
-            AudioClips.Explosion => ShipExplosion,
+            Explosion => ShipExplosion,
             _ => null
         };
 
@@ -77,5 +82,16 @@ public class AudioManager : MonoBehaviour
         }
 
         audioToPlay.Play();
+    }
+
+    public void MuteGameSounds(bool muteGame)
+    {
+        foreach (AudioSource source in gameSounds)
+            source.mute = muteGame;
+    }
+
+    public void MuteGameMusic(bool muteMusic)
+    {
+        musicPlayer.mute = muteMusic;
     }
 }
