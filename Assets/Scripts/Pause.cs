@@ -62,14 +62,4 @@ public class Pause : MonoBehaviour
         IsPaused = true;
         IsGameOver = true;
     }
-
-    public void PauseGame()
-    {
-        IsPaused = true;
-    }
-
-    public void UnpauseGame()
-    {
-        IsPaused = false;
-    }
 }
